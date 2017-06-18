@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+  <!-- Enable JMX -->
+  <jmxConfigurator />
+
+  <!-- Dev mode defaults -->
+  <property scope="context" name ="logback.statuslistener.enabled"    value="${logback.statuslistener.enabled:-false}" />
+  <property scope="context" name ="logback.appender.console.enabled"  value="${logback.appender.console.enabled:-false}" />
+  <property scope="context" name ="logback.appender.jsonfile.enabled" value="${logback.appender.jsonfile.enabled:-true}" />
+  <property scope="context" name ="logback.appender.textfile.enabled" value="${logback.appender.textfile.enabled:-true}" />
+  <property scope="context" name ="logback.level.root" value="${logback.level.root:-INFO}" />
+  <property scope="context" name ="logback.level.app"  value="${logback.level.app:-TRACE}" />
+
+    <!-- print logging status messages (logging problems) to stderr -->
+<if condition='p("logback.statuslistener.enabled").equalsIgnoreCase("false")'>
+  <then><statusListener class="ch.qos.logback.core.status.NopStatusListener" /></then>
+  <else><statusListener class="ch.qos.logback.core.status.OnErrorConsoleStatusListener" /></else>
+</if>
+
+<if condition='p("logback.appender.console.enabled").equalsIgnoreCase("true")'><then>
+  <appender name="STDOUT"
+            class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <pattern>%d{HH:mm:ss.SSS, UTC} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg - {%mdc}%n</pattern>
+    </layout>
+  </appender>
+</then></if>
+
+<if condition='p("logback.appender.jsonfile.enabled").equalsIgnoreCase("true")'><then>
+    <appender name="JsonFileApp"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logfile.app.json.name:-logs/application_json.log}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+          <!-- daily rollover -->
+          <fileNamePattern>${logfile.app.json.name:-logs/application_json.log}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+          <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <!-- or whenever the file size reaches 100MB -->
+            <maxFileSize>${logfile.max.filesize:-100MB}</maxFileSize>
+          </timeBasedFileNamingAndTriggeringPolicy>
+          <!-- keep 10 days worth of history -->
+          <maxHistory>${logfile.maxhistory.days:-10}</maxHistory>
+        </rollingPolicy>
+        <append>true</append>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+          <layout class="logback_bundle.json.FlatJsonLayout">
+            <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+              <!-- prettyPrint is probably ok in dev, but usually not ideal in production: -->
+              <prettyPrint>${logfile.json.pretty.print:-false}</prettyPrint>
+            </jsonFormatter>
+            <!-- <context>api</context> -->
+            <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</timestampFormat>
+            <timestampFormatTimezoneId>UTC</timestampFormatTimezoneId>
+            <appendLineSeparator>true</appendLineSeparator>
+          </layout>
+        </encoder>
+        <immediateFlush>${logfile.immediate.flush:-true}</immediateFlush>
+    </appender>
+
+    <appender name="JsonFileMetrics"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logfile.metrics.json.name:-logs/metrics_json.log}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+          <!-- daily rollover -->
+          <fileNamePattern>${logfile.metrics.json.name:-logs/metrics_json.log}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+          <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <!-- or whenever the file size reaches 100MB -->
+            <maxFileSize>${logfile.max.filesize:-100MB}</maxFileSize>
+          </timeBasedFileNamingAndTriggeringPolicy>
+          <!-- keep 10 days worth of history -->
+          <maxHistory>${logfile.maxhistory.days:-10}</maxHistory>
+        </rollingPolicy>
+        <append>true</append>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+          <layout class="logback_bundle.json.FlatJsonLayout">
+            <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+              <!-- prettyPrint is probably ok in dev, but usually not ideal in production: -->
+              <prettyPrint>${logfile.json.pretty.print:-false}</prettyPrint>
+            </jsonFormatter>
+            <!-- <context>api</context> -->
+            <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</timestampFormat>
+            <timestampFormatTimezoneId>UTC</timestampFormatTimezoneId>
+            <appendLineSeparator>true</appendLineSeparator>
+          </layout>
+        </encoder>
+        <immediateFlush>${logfile.immediate.flush:-true}</immediateFlush>
+    </appender>
+
+    <appender name="AsyncJsonFileApp" class="ch.qos.logback.classic.AsyncAppender">
+      <queueSize>${logfile.async.queue.size:-500}</queueSize>
+      <!-- Discard nothing by default -->
+      <discardingThreshold>${logfile.async.discard.at:-0}</discardingThreshold>
+      <appender-ref ref="JsonFileApp" />
+    </appender>
+
+    <appender name="AsyncJsonFileMetrics" class="ch.qos.logback.classic.AsyncAppender">
+      <queueSize>${logfile.async.queue.size:-500}</queueSize>
+      <!-- Discard nothing by default -->
+      <discardingThreshold>${logfile.async.discard.at:-0}</discardingThreshold>
+      <appender-ref ref="JsonFileMetrics" />
+    </appender>
+</then></if>
+
+
+<if condition='p("logback.appender.textfile.enabled").equalsIgnoreCase("true")'><then>
+    <appender name="TextFileApp"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logfile.app.text.name:-logs/application_text.log}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+          <!-- daily rollover -->
+          <fileNamePattern>${logfile.app.text.name:-logs/application_text.log}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+          <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <!-- or whenever the file size reaches 100MB -->
+            <maxFileSize>${logfile.max.filesize:-100MB}</maxFileSize>
+          </timeBasedFileNamingAndTriggeringPolicy>
+          <!-- keep 10 days worth of history -->
+          <maxHistory>${logfile.maxhistory.days:-10}</maxHistory>
+        </rollingPolicy>
+        <append>true</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+          <pattern>%d{HH:mm:ss.SSS, UTC} [%thread] %-5level %logger{36} - %msg - {%mdc}%n</pattern>
+        </encoder>
+        <immediateFlush>${logfile.immediate.flush:-true}</immediateFlush>
+    </appender>
+
+    <appender name="TextFileMetrics"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logfile.metrics.text.name:-logs/metrics_text.log}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+          <!-- daily rollover -->
+          <fileNamePattern>${logfile.metrics.text.name:-logs/metrics_text.log}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+          <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <!-- or whenever the file size reaches 100MB -->
+            <maxFileSize>${logfile.max.filesize:-100MB}</maxFileSize>
+          </timeBasedFileNamingAndTriggeringPolicy>
+          <!-- keep 10 days worth of history -->
+          <maxHistory>${logfile.maxhistory.days:-10}</maxHistory>
+        </rollingPolicy>
+        <append>true</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+          <pattern>%d{HH:mm:ss.SSS, UTC} [%thread] %-5level %logger{36} - %msg - {%mdc}%n</pattern>
+        </encoder>
+        <immediateFlush>${logfile.immediate.flush:-true}</immediateFlush>
+    </appender>
+
+    <appender name="AsyncTextFileApp" class="ch.qos.logback.classic.AsyncAppender">
+      <queueSize>${logfile.async.queue.size:-500}</queueSize>
+      <!-- Discard nothing by default -->
+      <discardingThreshold>${logfile.async.discard.at:-0}</discardingThreshold>
+      <appender-ref ref="TextFileApp" />
+    </appender>
+
+    <appender name="AsyncTextFileMetrics" class="ch.qos.logback.classic.AsyncAppender">
+      <queueSize>${logfile.async.queue.size:-500}</queueSize>
+      <!-- Discard nothing by default -->
+      <discardingThreshold>${logfile.async.discard.at:-0}</discardingThreshold>
+      <appender-ref ref="TextFileMetrics" />
+    </appender>
+</then></if>
+
+    <root level="${logback.level.root}">
+<if condition='p("logback.appender.console.enabled").equalsIgnoreCase("true")'><then>
+        <appender-ref ref="STDOUT" />
+</then></if>
+<if condition='p("logback.appender.jsonfile.enabled").equalsIgnoreCase("true")'><then>
+        <appender-ref ref="AsyncJsonFileApp" />
+</then></if>
+<if condition='p("logback.appender.textfile.enabled").equalsIgnoreCase("true")'><then>
+        <appender-ref ref="AsyncTextFileApp" />
+</then></if>
+    </root>
+
+
+    <logger name="bract.sample.app" additivity="false">
+        <level value="${logback.level.app}"/>
+<if condition='p("logback.appender.console.enabled").equalsIgnoreCase("true")'><then>
+        <appender-ref ref="STDOUT" />
+</then></if>
+<if condition='p("logback.appender.jsonfile.enabled").equalsIgnoreCase("true")'><then>
+        <appender-ref ref="AsyncJsonFileApp" />
+</then></if>
+<if condition='p("logback.appender.textfile.enabled").equalsIgnoreCase("true")'><then>
+        <appender-ref ref="AsyncTextFileApp" />
+</then></if>
+    </logger>
+
+    <!-- metrics logger -->
+    <logger name="METRICS" additivity="false">
+        <level value="INFO"/>
+<if condition='p("logback.appender.jsonfile.enabled").equalsIgnoreCase("true")'><then>
+        <appender-ref ref="AsyncJsonFileMetrics" />
+</then></if>
+<if condition='p("logback.appender.textfile.enabled").equalsIgnoreCase("true")'><then>
+        <appender-ref ref="AsyncTextFileMetrics" />
+</then></if>
+    </logger>
+
+</configuration>

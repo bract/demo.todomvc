@@ -1,0 +1,2 @@
+{:database-change-log [{:pre-conditions [{:dbms {:type :h2}}]}
+                       {:include {:file "liquibase/ch-001-create-todos-table.sql"}}]}

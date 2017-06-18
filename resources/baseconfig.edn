@@ -1,0 +1,51 @@
+{"bract.core.inducers" ["bract.core.inducer/export-as-sysprops"
+                        "demo.todomvc.init/log-init"
+                        "demo.todomvc.init/db-conn-init"
+                        "demo.todomvc.init/ring-init"
+                        (bract.core.inducer/run-config-inducers
+                          "dev-inducers")
+                        "bract.core.inducer/invoke-launcher"]
+ "dev-inducers"        []  ; no-op for production
+ "bract.core.launcher" "demo.todomvc.init/start-server"
+ ;; logging config
+ "bract.core.exports" ["logback.statuslistener.enabled"
+                       "logback.level.root"
+                       "logback.level.app"
+                       "logback.appender.console.enabled"
+                       "logback.appender.jsonfile.enabled"
+                       "logback.appender.textfile.enabled"
+                       "logfile.app.json.name"
+                       "logfile.app.text.name"
+                       "logfile.metrics.json.name"
+                       "logfile.metrics.text.name"
+                       "logfile.max.filesize"
+                       "logfile.maxhistory.days"
+                       "logfile.json.pretty.print"
+                       "logfile.immediate.flush"
+                       "logfile.async.queue.size"
+                       "logfile.async.discard.at"
+                       "net.spy.log.LoggerImpl"]
+ "logback.statuslistener.enabled"    "true"
+ "logback.level.root"                "INFO"
+ "logback.level.app"                 "DEBUG"
+ "logback.appender.console.enabled"  "true"
+ "logback.appender.jsonfile.enabled" "true"
+ "logback.appender.textfile.enabled" "true"
+ "logfile.app.json.name"             "logs/application_json.log"
+ "logfile.app.text.name"             "logs/application_text.log"
+ "logfile.metrics.json.name"         "logs/metrics_json.log"
+ "logfile.metrics.text.name"         "logs/metrics_text.log"
+ "logfile.max.filesize"              "100MB"
+ "logfile.maxhistory.days"           "10"
+ "logfile.json.pretty.print"         "false"
+ "logfile.immediate.flush"           "true"
+ "logfile.async.queue.size"          "500"
+ "logfile.async.discard.at"          "0"
+ ;; direct SpyMemcached logs to SLF4j
+ "net.spy.log.LoggerImpl"            "net.spy.memcached.compat.log.SLF4JLogger"
+ ;; Database
+ "database.name" "./todos"
+ ;; HTTP-Kit config
+ "http-kit.opts" {:port 3000}
+ ;; web rendering
+ "minify.js.file" true}
