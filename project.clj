@@ -11,6 +11,7 @@
                  [org.clojure/clojurescript "1.9.562"]
                  [cljs-ajax "0.6.0"]         ; for making AJAX calls from within the browser
                  ;; server-side web
+                 [ring/ring-core   "1.6.1"]
                  [bract/bract.ring "0.3.0"]  ; Ring support for Bract
                  [calfpath         "0.4.0"]  ; server side web routing
                  [http-kit         "2.2.0"]  ; web server
