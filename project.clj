@@ -25,21 +25,27 @@
                  [asphalt  "0.6.0"]  ; for reading/writing databases using JDBC
                  ]
   :target-path "target/%s"
-  :plugins [[lein-cljsbuild "1.1.6"]
+  :plugins [[lein-cljsbuild "1.1.6" :exclusions [org.clojure/clojure]]
             [lein-ring      "0.12.0"]]
+  :clean-targets ^{:protect false} ["resources/public/js/out"
+                                    "resources/public/js/app.js"
+                                    "resources/public/js/app.min.js"
+                                    :target-path]
   :cljsbuild {:builds [{:id "dev"
                         :source-paths ["src/cljs"]
-                        :compiler {:output-to  "resources/public/js/app.js"
+                        :compiler {:main demo.todomvc.app
+                                   :asset-path "/public/js/out"
+                                   :output-to  "resources/public/js/app.js"
                                    :output-dir "resources/public/js/out"
                                    :pretty-print  true
                                    :optimizations :none
-                                   :source-map    true}}
+                                   :source-map    true
+                                   :source-map-timestamp true}}
                        {:id "prod"
                         :source-paths ["src/cljs"]
                         :compiler {:output-to "resources/public/js/app.min.js"
                                    :pretty-print  false
-                                   :optimizations :advanced
-                                   :source-map    false}}]}
+                                   :optimizations :advanced}}]}
   :ring {:handler bract.ring.dev/handler
          :init    bract.ring.dev/init!
          :port    3000
