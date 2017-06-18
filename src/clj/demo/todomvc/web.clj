@@ -87,13 +87,12 @@
                                   :get  (list-todos)
                                   :post (add-todo (slurp (:body request))))
     "/todos/:id/"          [id] (->delete request (delete-todo id))
-    "/todos/:id/content/"  [id] (->put request (update-content  id (slurp (:body request))))
-    "/todos/:id/complete/" [id] (->put request (update-complete id (= "true" (string/lower-case
-                                                                               (slurp (:body request))))))
-    "/public/*"            []   (->get request
-                                  (if-let [response (rur/resource-response (subs (:uri request) 1))]
-                                    (do (config/metrics "metrics.web.200") response)
-                                    (do (config/metrics {:uri (:uri request)} "metrics.web.404")
-                                      {:status 404 :body "Not found"})))
-    "/favicon.ico"         []   {:status 302 :headers {"Location" "/public/favicon.ico"}}
-    "/"                    []   (->get request (render-home))))
+    "/todos/:id/content/"  [id] (->put    request (update-content  id (slurp (:body request))))
+    "/todos/:id/complete/" [id] (->put    request (update-complete id (= "true" (string/lower-case
+                                                                                  (slurp (:body request))))))
+    "/public/*"            []   (->get    request (if-let [response (rur/resource-response (subs (:uri request) 1))]
+                                                    (do (config/metrics "metrics.web.200") response)
+                                                    (do (config/metrics {:uri (:uri request)} "metrics.web.404")
+                                                      {:status 404 :body "Not found"})))
+    "/favicon.ico"         []   (->get    request (rur/redirect "/public/favicon.ico"))
+    "/"                    []   (->get    request (render-home))))
