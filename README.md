@@ -22,7 +22,9 @@ $ lein db:migrate
 
 ### Starting the server
 
-You can build the app locally and run it as follows:
+Once you start the server you should visit http://localhost:3000 in your web browser.
+
+You can build the app locally and start the server as follows:
 
 ```shell
 $ lein do clean, cljsbuild once
@@ -40,7 +42,7 @@ $ lein ring server-headless      # ensure not to include clean task
 Should you need a browser REPL during development, you should run the following commands instead:
 
 ```shell
-$ lein do clean, figwheel        # in a separate terminal
+$ lein do clean, figwheel        # in a separate terminal, preferably with rlwrap
 $ lein ring server-headless      # ensure not to include clean task
 ```
 
