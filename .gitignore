@@ -15,4 +15,6 @@ pom.xml.asc
 /*.mv.db
 /resources/public/js
 /logs
+/.repl*
+/figwheel_server.log
 

@@ -46,7 +46,8 @@
                                    :source-map-timestamp true}}
                        {:id "prod"
                         :source-paths ["src/cljs"]
-                        :compiler {:output-to "resources/public/js/app.min.js"
+                        :compiler {:output-to  "resources/public/js/app.min.js"
+                                   :output-dir "target/js/out"
                                    :pretty-print  false
                                    :optimizations :advanced}}]}
   :ring {:handler bract.ring.dev/handler
