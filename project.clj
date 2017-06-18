@@ -27,6 +27,7 @@
                  ]
   :target-path "target/%s"
   :plugins [[lein-cljsbuild "1.1.6" :exclusions [org.clojure/clojure]]
+            [lein-figwheel  "0.5.10"]
             [lein-ring      "0.12.0"]]
   :clean-targets ^{:protect false} ["resources/public/js/out"
                                     "resources/public/js/app.js"
@@ -34,6 +35,7 @@
                                     :target-path]
   :cljsbuild {:builds [{:id "dev"
                         :source-paths ["src/cljs"]
+                        :figwheel true
                         :compiler {:main demo.todomvc.app
                                    :asset-path "/public/js/out"
                                    :output-to  "resources/public/js/app.js"

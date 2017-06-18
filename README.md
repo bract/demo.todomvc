@@ -37,6 +37,13 @@ $ lein do clean, cljsbuild auto  # in a separate terminal
 $ lein ring server-headless      # ensure not to include clean task
 ```
 
+Should you need a browser REPL during development, you should run the following commands instead:
+
+```shell
+$ lein do clean, figwheel        # in a separate terminal
+$ lein ring server-headless      # ensure not to include clean task
+```
+
 
 ### REPL based development
 
