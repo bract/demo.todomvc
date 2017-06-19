@@ -26,6 +26,7 @@
     [goog.events :as gevents]
     [goog.string :as gstring]
     [goog.string.format]
+    [goog.style  :as gstyle]
     [ajax.core :refer [GET POST PUT DELETE]]))
 
 
@@ -152,13 +153,19 @@
 
 (defn update-todos [todos]
   (gdom/removeChildren dom-todo-list)
-  (doseq [each todos]
-    (let [node (make-todo-node (get each "id") (get each "content") (get each "complete?"))]
+  (doseq [{:strs [id content complete?]} todos]
+    (let [node (make-todo-node id content complete?)]
       (gdom/appendChild dom-todo-list node)))
-  (->> todos
-    (filter #(not (get % "complete?")))
-    count
-    (set! (.-textContent (aget (query ".todo-count strong") 0))))
+  (let [{:keys [incomplete-count
+                complete-count]} (reduce (fn [m each] (update m (if (get each "complete?")
+                                                                  :complete-count :incomplete-count) inc))
+                                   {:incomplete-count 0
+                                    :complete-count   0}
+                                   todos)]
+    (set! (.-textContent (aget (query ".todo-count strong") 0)) incomplete-count)
+    (gstyle/setStyle (gdom/getElementByClass "clear-completed") "display" (if (pos? complete-count)
+                                                                            "block"
+                                                                            "none")))
   (bind-event-handler (query "li label") goog.events.EventType.DBLCLICK edit-todo-text)
   (bind-event-handler (query "li .edit") goog.events.EventType.FOCUSOUT save-edited-todo)
   (bind-event-handler (query "li .edit") goog.events.EventType.KEYPRESS save-edited-todo)
