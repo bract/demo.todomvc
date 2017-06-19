@@ -1,6 +1,6 @@
-(defproject bract/demo.todomvc "0.3.0-SNAPSHOT"
+(defproject bract/demo.todomvc "0.3.0"
   :description "Demo TodoMVC app using Clojure, ClojureScript and the Bract framework"
-  :url "http://example.com/FIXME"
+  :url "https://github.com/bract/demo.todomvc"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :source-paths ["src/clj"]
@@ -59,5 +59,4 @@
                    :source-paths ["dev"]}
              :uberjar {:aot [bract.cli.main]
                        :main ^:skip-aot bract.cli.main}}
-  :aliases {"liquibase"  ["run" "-m" "liquibase"]
-            "db:migrate" ["run" "-m" "liquibase" "update"]})
+  :aliases {"liquibase"  ["run" "-m" "liquibase"]})

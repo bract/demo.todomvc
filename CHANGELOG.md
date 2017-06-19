@@ -1,6 +1,10 @@
 # demo.todomvc Change Log
 
-## [WIP] 0.3.0 / 2017-June-??
+## Todo
+- [Todo] Factor out Liquibase as a module
+
+
+## 0.3.0 / 2017-June-19
 
 - ClojureScript based browser DOM manipulation
 - File based H2 database storage

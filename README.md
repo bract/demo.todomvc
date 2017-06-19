@@ -16,7 +16,7 @@ $ lein do clean, run -m liquibase update
 The `project.clj` file has a shorter alias defined for this task, so you may run the following command instead:
 
 ```shell
-$ lein db:migrate
+$ lein liquibase update
 ```
 
 
@@ -29,7 +29,7 @@ You can build the app locally and start the server as follows:
 ```shell
 $ lein do clean, cljsbuild once
 $ lein do clean, uberjar
-$ java -jar target/uberjar/demo.todomvc-0.3.0-SNAPSHOT-standalone.jar -vf config.edn
+$ java -jar target/uberjar/demo.todomvc-0.3.0-standalone.jar -vf config.edn
 ```
 
 Alternatively, you may want to run it as follows in development (but logging configuration may be out of control):
@@ -39,7 +39,7 @@ $ lein do clean, cljsbuild auto  # in a separate terminal
 $ lein ring server-headless      # ensure not to include clean task
 ```
 
-Should you need a browser REPL during development, you should run the following commands instead:
+Should you need a browser REPL during development, run the following commands instead (with logging config caveat):
 
 ```shell
 $ lein do clean, figwheel        # in a separate terminal, preferably with rlwrap
