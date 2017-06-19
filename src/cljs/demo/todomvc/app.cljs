@@ -74,6 +74,8 @@
 
 (def dom-new-todo  (gdom/getElementByClass "new-todo"))
 (def dom-todo-list (gdom/getElementByClass "todo-list"))
+(def dom-clear-btn (gdom/getElementByClass "clear-completed"))
+
 
 (defn make-todo-node [id content complete?]
   (let [div (gdom/createElement "div")
@@ -163,9 +165,9 @@
                                     :complete-count   0}
                                    todos)]
     (set! (.-textContent (aget (query ".todo-count strong") 0)) incomplete-count)
-    (gstyle/setStyle (gdom/getElementByClass "clear-completed") "display" (if (pos? complete-count)
-                                                                            "block"
-                                                                            "none")))
+    (gstyle/setStyle dom-clear-btn "display" (if (pos? complete-count)
+                                               "block"
+                                               "none")))
   (bind-event-handler (query "li label") goog.events.EventType.DBLCLICK edit-todo-text)
   (bind-event-handler (query "li .edit") goog.events.EventType.FOCUSOUT save-edited-todo)
   (bind-event-handler (query "li .edit") goog.events.EventType.KEYPRESS save-edited-todo)
@@ -216,13 +218,28 @@
             (list-todos)))))))
 
 
+;; ----- clear completed setup -----
+
+
+(defn setup-clear-completed []
+  (gevents/listen
+    dom-clear-btn
+    goog.events.EventType.CLICK
+    (fn [event]
+      (let [uri "/todos/complete/"]
+        (logf "-> [DELETE %s]" uri)
+        (DELETE uri {:handler (fn [status] (list-todos))
+                     :error-handler (ajax-error-when "deleting completed TODO items")})))))
+
+
 ;; ----- page setup -----
 
 
 (defn setup []
   (setup-add-todo)
   (list-todos)
-  (setup-filters))
+  (setup-filters)
+  (setup-clear-completed))
 
 
 (setup)

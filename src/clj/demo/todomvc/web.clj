@@ -49,6 +49,12 @@
     (json-200)))
 
 
+(defn delete-complete-todos []
+  (log/with-logging-context {:endpoint "delete-complete-todos"}
+    (db/delete-complete)
+    (json-200)))
+
+
 (defn delete-todo [id]
   (log/with-logging-context {:endpoint "delete-todo"}
     (if (pos? (db/delete-item id))
@@ -86,6 +92,7 @@
     "/todos/"              []   (->method request
                                   :get  (list-todos)
                                   :post (add-todo (slurp (:body request))))
+    "/todos/complete/"     []   (->delete request (delete-complete-todos))
     "/todos/:id/"          [id] (->delete request (delete-todo id))
     "/todos/:id/content/"  [id] (->put    request (update-content  id (slurp (:body request))))
     "/todos/:id/complete/" [id] (->put    request (update-complete id (= "true" (string/lower-case

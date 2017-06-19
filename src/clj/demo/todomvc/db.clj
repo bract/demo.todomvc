@@ -30,6 +30,9 @@
 (asphalt/defsql sql-delete-item     "DELETE FROM todos WHERE todo_id = $id")
 
 
+(asphalt/defsql sql-delete-complete "DELETE FROM todos WHERE complete = true")
+
+
 (defn insert-item
   ([content]
     (insert-item (util/uuid) content))
@@ -56,3 +59,8 @@
 (defn delete-item
   [id]
   (sql-delete-item config/db {:id id}))
+
+
+(defn delete-complete
+  []
+  (sql-delete-complete config/db []))

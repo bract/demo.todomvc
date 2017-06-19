@@ -82,3 +82,19 @@
             c2 :content} :as rows] (db/find-all)]
       (is (= 1 (count rows)))
       (is (= [id2 "bar"] [i2 c2])))))
+
+
+(deftest test-delete-complete
+  (let [id1 (util/uuid)
+        id2 (util/uuid)
+        id3 (util/uuid)]
+    (db/insert-item id1 "foo")
+    (db/insert-item id2 "bar")
+    (db/insert-item id3 "baz")
+    (db/update-complete id1 true)
+    (db/update-complete id3 true)
+    (db/delete-complete)
+    (let [[{i2 :id
+            c2 :content} :as rows] (db/find-all)]
+      (is (= 1 (count rows)))
+      (is (= [id2 "bar"] [i2 c2])))))
