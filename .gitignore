@@ -12,7 +12,7 @@ pom.xml.asc
 /.classpath
 /.project
 /.settings
-/*.mv.db
+/*.db
 /resources/public/js
 /logs
 /.repl*
