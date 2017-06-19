@@ -62,6 +62,12 @@
         (handler-maker each)))))
 
 
+;; ----- state -----
+
+
+(def current-filter :all)  ;; possible values -> :all :active :completed
+
+
 ;; ----- DOM elements -----
 
 
@@ -79,7 +85,13 @@
   </div>
   <input class=\"edit\" data-id=\"%s\" value=\"%s\">
 </li>"
-      (if complete? " class=\"completed\"" "")
+      (let [klass (if complete? " class=\"completed\"" "")
+            dnone (case current-filter
+                    :all       ""
+                    :active    (if complete? "style=\"display: none\"" "")
+                    :completed (if complete? "" "style=\"display: none\"")
+                    "")]
+        (str klass " " dnone))
       id (if complete? "checked" "") id content id id content)]
     (set! (.-innerHTML div) txt)
     div))
@@ -91,8 +103,7 @@
 (declare list-todos)
 
 
-(defn edit-todo-text
-  [node]
+(defn edit-todo-text [node]
   (fn [event]
     (let [parent-li (.-parentNode (.-parentNode node))]
       (when-not (gclasses/has parent-li "editing") ; no editing?
@@ -101,8 +112,7 @@
           (.focus edit-box))))))
 
 
-(defn save-edited-todo
-  [node]
+(defn save-edited-todo [node]
   (fn [event]
     (when (or (not= "keypress" (.-type event))
             (= 13 (.-keyCode event)))  ; pressed Enter key?
@@ -117,8 +127,7 @@
                :error-handler (ajax-error-when "updating TODO")})))))))
 
 
-(defn toggle-complete-todo
-  [node]
+(defn toggle-complete-todo [node]
   (fn [event]
     (let [uri  (urif "/todos/%s/complete/" node)
           body (str (.-checked node))]
@@ -129,8 +138,7 @@
          :error-handler (ajax-error-when (str "marking TODO " (when-not (.-checked node) "in") "complete"))}))))
 
 
-(defn delete-todo
-  [node]
+(defn delete-todo [node]
   (fn [event]
     (let [uri (urif "/todos/%s/" node)]
       (logf "-> [DELETE %s]" uri)
@@ -177,9 +185,37 @@
                            :error-handler (ajax-error-when "adding new TODO item")}))))))
 
 
+;; ----- filter setup -----
+
+
+(defn setup-filters []
+  (let [nodes (query "li a")
+        radio (fn [selected-node]
+                (dotimes [idx (alength nodes)]
+                  (let [each (aget nodes idx)]
+                    (gclasses/remove each "selected")))
+                (gclasses/add selected-node "selected"))]
+    (dotimes [idx (alength nodes)]
+      (let [each (aget nodes idx)]
+        (gevents/listen
+          each
+          goog.events.EventType.CLICK
+          (fn [event]
+            (case (.-hash each)
+              "#/"          (do (set! current-filter :all)       (radio each))
+              "#/active"    (do (set! current-filter :active)    (radio each))
+              "#/completed" (do (set! current-filter :completed) (radio each))
+              (js/alert (str "Unexpected hash for filter link: " (.-hash each))))
+            (list-todos)))))))
+
+
+;; ----- page setup -----
+
+
 (defn setup []
   (setup-add-todo)
-  (list-todos))
+  (list-todos)
+  (setup-filters))
 
 
 (setup)
