@@ -147,6 +147,10 @@
   (doseq [each todos]
     (let [node (make-todo-node (get each "id") (get each "content") (get each "complete?"))]
       (gdom/appendChild dom-todo-list node)))
+  (->> todos
+    (filter #(not (get % "complete?")))
+    count
+    (set! (.-textContent (aget (query ".todo-count strong") 0))))
   (bind-event-handler (query "li label") goog.events.EventType.DBLCLICK edit-todo-text)
   (bind-event-handler (query "li .edit") goog.events.EventType.FOCUSOUT save-edited-todo)
   (bind-event-handler (query "li .edit") goog.events.EventType.KEYPRESS save-edited-todo)
