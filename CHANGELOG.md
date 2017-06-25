@@ -4,6 +4,14 @@
 - [Todo] Factor out Liquibase as a module
 
 
+## [WIP] 0.3.1 / 2017-June-??
+
+- [TODO] Replace implicit page load with `window.onload = function () { demo.todomvc.app.setup(); }`
+  - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/resources/public/index.html
+  - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/project.clj
+- [TODO] Use a Hiccup like library instead of string concatenation to create DOM nodes
+
+
 ## 0.3.0 / 2017-June-19
 
 - ClojureScript based browser DOM manipulation
