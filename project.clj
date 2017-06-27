@@ -8,7 +8,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [bract/bract.cli     "0.3.0"]
                  ;; ClojureScript
-                 [org.clojure/clojurescript "1.9.562"]
+                 [org.clojure/clojurescript "1.9.660"]
                  [cljs-ajax "0.6.0"]         ; for making AJAX calls from within the browser
                  ;; server-side web
                  [ring/ring-core   "1.6.1"]

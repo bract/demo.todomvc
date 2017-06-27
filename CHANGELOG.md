@@ -6,6 +6,7 @@
 
 ## [WIP] 0.3.1 / 2017-June-??
 
+- Update ClojureScript version to 1.9.660
 - [TODO] Replace implicit page load with `window.onload = function () { demo.todomvc.app.setup(); }`
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/resources/public/index.html
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/project.clj
