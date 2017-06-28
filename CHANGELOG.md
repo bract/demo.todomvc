@@ -11,6 +11,7 @@
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/resources/public/index.html
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/project.clj
 - [TODO] Use a Hiccup like library instead of string concatenation to create DOM nodes
+- [TODO] Use Bract `0.3.1` components
 
 
 ## 0.3.0 / 2017-June-19
