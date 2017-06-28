@@ -6,13 +6,13 @@
   :source-paths ["src/clj"]
   :test-paths   ["test/clj"]
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [bract/bract.cli     "0.3.0"]
+                 [bract/bract.cli     "0.3.1-SNAPSHOT"]
                  ;; ClojureScript
                  [org.clojure/clojurescript "1.9.660"]
                  [cljs-ajax "0.6.0"]         ; for making AJAX calls from within the browser
                  ;; server-side web
                  [ring/ring-core   "1.6.1"]
-                 [bract/bract.ring "0.3.0"]  ; Ring support for Bract
+                 [bract/bract.ring "0.3.1-SNAPSHOT"]  ; Ring support for Bract
                  [calfpath         "0.4.0"]  ; server side web routing
                  [http-kit         "2.2.0"]  ; web server
                  ;; logging
@@ -54,7 +54,7 @@
          :init    bract.ring.dev/init!
          :port    3000
          :nrepl   {:start? true :port 3001}}
-  :profiles {:dev {:dependencies [[bract/bract.dev "0.3.0"]
+  :profiles {:dev {:dependencies [[bract/bract.dev "0.3.1-SNAPSHOT"]
                                   [clj-liquibase   "0.6.0"]]
                    :source-paths ["dev"]}
              :uberjar {:aot [bract.cli.main]
