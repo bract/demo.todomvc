@@ -14,6 +14,7 @@
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/project.clj
 - Use Hiccups CLJS library (instead of string concatenation) to generate TODO item HTML
 - Hide unnecessary controls when there are no TODO items
+- Implement toggle-complete-all feature
 - [TODO] Use Bract `0.3.1` components
 
 

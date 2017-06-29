@@ -69,6 +69,9 @@
 ;; ----- state -----
 
 
+(def todo-items [])  ; TODO items data, as returned by the web service
+
+
 (def current-filter :all)  ;; possible values -> :all :active :completed
 
 
@@ -163,13 +166,34 @@
          :error-handler (ajax-error-when "deleting TODO")}))))
 
 
+;; ----- toggle-all setup -----
+
+
+(defn setup-toggle-all []
+  (gevents/listen
+    dom-toggle-all-label
+    goog.events.EventType.CLICK
+    (fn [event]
+      (let [uri  "/todos/complete/all/"
+            all? (every? #(get % "complete?") todo-items)
+            body (-> all? not str)]
+        (logf "-> [PUT %s]: '%s'" uri body)
+        (PUT uri {:body body
+                  :handler (fn [status] (list-todos))
+                  :error-handler (ajax-error-when "deleting completed TODO items")})))))
+
+
 ;; ----- update components -----
 
 
 (defn update-todos [todos]
+  (set! todo-items (into [] todos))  ; update global state
   (let [todos? (boolean (seq todos))]
-    (gstyle/setElementShown dom-toggle-all-label todos?)
-    (gstyle/setElementShown dom-footer todos?))
+    (gstyle/setElementShown dom-toggle-all-label todos?)  ; show/hide toggle-all button
+    (gstyle/setElementShown dom-footer todos?))           ; show/hide controls footer
+  (->> todos
+    (every? #(get % "complete?"))
+    (set! (.-checked dom-toggle-all-input)))              ; highlight the toggle-all button
   (gdom/removeChildren dom-todo-list)
   (doseq [{:strs [id content complete?]} todos]
     (let [node (make-todo-node id content complete?)]
@@ -250,6 +274,7 @@
 
 
 (defn setup []
+  (setup-toggle-all)
   (setup-add-todo)
   (list-todos)
   (setup-filters)

@@ -77,6 +77,12 @@
       (id-404 id))))
 
 
+(defn toggle-complete [complete?]
+  (log/with-logging-context {:endpoint "toggle-complete"}
+    (db/toggle-complete complete?)
+    (json-200)))
+
+
 (defn render-homepage-html
   [minified-js?]
   (clostache/render-resource "template/index.html" {:minified-js minified-js?}))
@@ -99,6 +105,8 @@
                                   :get  (list-todos)
                                   :post (add-todo (slurp (:body request))))
     "/todos/complete/"     []   (->delete request (delete-complete-todos))
+    "/todos/complete/all/" []   (->put    request (toggle-complete (= "true" (string/lower-case
+                                                                               (slurp (:body request))))))
     "/todos/:id/"          [id] (->delete request (delete-todo id))
     "/todos/:id/content/"  [id] (->put    request (update-content  id (slurp (:body request))))
     "/todos/:id/complete/" [id] (->put    request (update-complete id (= "true" (string/lower-case
