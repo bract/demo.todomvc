@@ -75,9 +75,11 @@
 ;; ----- DOM elements -----
 
 
-(def dom-new-todo  (gdom/getElementByClass "new-todo"))
-(def dom-todo-list (gdom/getElementByClass "todo-list"))
-(def dom-clear-btn (gdom/getElementByClass "clear-completed"))
+(def dom-toggle-all (aget (query ".main label") 0))
+(def dom-new-todo   (gdom/getElementByClass "new-todo"))
+(def dom-todo-list  (gdom/getElementByClass "todo-list"))
+(def dom-footer     (gdom/getElementByClass "footer"))
+(def dom-clear-btn  (gdom/getElementByClass "clear-completed"))
 
 
 (defn item-html [id content complete?]
@@ -164,6 +166,9 @@
 
 
 (defn update-todos [todos]
+  (let [todos? (boolean (seq todos))]
+    (gstyle/setElementShown dom-toggle-all todos?)
+    (gstyle/setElementShown dom-footer todos?))
   (gdom/removeChildren dom-todo-list)
   (doseq [{:strs [id content complete?]} todos]
     (let [node (make-todo-node id content complete?)]
@@ -175,9 +180,8 @@
                                     :complete-count   0}
                                    todos)]
     (set! (.-textContent (aget (query ".todo-count strong") 0)) incomplete-count)
-    (gstyle/setStyle dom-clear-btn "display" (if (pos? complete-count)
-                                               "block"
-                                               "none")))
+    ;; show element only when complete-count > 0
+    (gstyle/setElementShown dom-clear-btn (pos? complete-count)))
   (bind-event-handler (query "li label") goog.events.EventType.DBLCLICK edit-todo-text)
   (bind-event-handler (query "li .edit") goog.events.EventType.FOCUSOUT save-edited-todo)
   (bind-event-handler (query "li .edit") goog.events.EventType.KEYPRESS save-edited-todo)

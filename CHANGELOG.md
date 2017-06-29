@@ -1,6 +1,7 @@
 # demo.todomvc Change Log
 
 ## Todo
+- [Todo] Move stateful vars from `config` to `global` namespace
 - [Todo] Factor out Liquibase as a module
 
 
@@ -12,6 +13,7 @@
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/resources/public/index.html
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/project.clj
 - Use Hiccups CLJS library (instead of string concatenation) to generate TODO item HTML
+- Hide unnecessary controls when there are no TODO items
 - [TODO] Use Bract `0.3.1` components
 
 
