@@ -75,7 +75,8 @@
 ;; ----- DOM elements -----
 
 
-(def dom-toggle-all (aget (query ".main label") 0))
+(def dom-toggle-all-input (gdom/getElementByClass "toggle-all"))
+(def dom-toggle-all-label (aget (query ".main label") 0))
 (def dom-new-todo   (gdom/getElementByClass "new-todo"))
 (def dom-todo-list  (gdom/getElementByClass "todo-list"))
 (def dom-footer     (gdom/getElementByClass "footer"))
@@ -167,7 +168,7 @@
 
 (defn update-todos [todos]
   (let [todos? (boolean (seq todos))]
-    (gstyle/setElementShown dom-toggle-all todos?)
+    (gstyle/setElementShown dom-toggle-all-label todos?)
     (gstyle/setElementShown dom-footer todos?))
   (gdom/removeChildren dom-todo-list)
   (doseq [{:strs [id content complete?]} todos]
@@ -196,16 +197,15 @@
 
 
 (defn setup-add-todo []
-  (let [element (gdom/getElementByClass "new-todo")]
-    (gevents/listen
-      element
-      goog.events.EventType.KEYPRESS
-      (fn [event]
-        (when (= 13 (.-keyCode event))  ; pressed Enter key?
-          (logf "-> [POST /todos/]: '%s'" (.-value element))
-          (POST "/todos/" {:body (.-value element)
-                           :handler (fn [status] (set! (.-value element) "") (list-todos))
-                           :error-handler (ajax-error-when "adding new TODO item")}))))))
+  (gevents/listen
+    dom-new-todo
+    goog.events.EventType.KEYPRESS
+    (fn [event]
+      (when (= 13 (.-keyCode event))  ; pressed Enter key?
+        (logf "-> [POST /todos/]: '%s'" (.-value dom-new-todo))
+        (POST "/todos/" {:body (.-value dom-new-todo)
+                         :handler (fn [status] (set! (.-value dom-new-todo) "") (list-todos))
+                         :error-handler (ajax-error-when "adding new TODO item")})))))
 
 
 ;; ----- filter setup -----
