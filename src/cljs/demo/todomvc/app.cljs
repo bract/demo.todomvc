@@ -20,13 +20,16 @@
     * https://google.github.io/closure-library/api/goog.dom.query.html"
   (:import
     [goog.dom query])
+  (:require-macros
+    [hiccups.core :as hiccups :refer [html]])
   (:require
-    [goog.dom    :as gdom]
+    [goog.dom         :as gdom]
     [goog.dom.classes :as gclasses]
-    [goog.events :as gevents]
-    [goog.string :as gstring]
+    [goog.events      :as gevents]
+    [goog.string      :as gstring]
     [goog.string.format]
-    [goog.style  :as gstyle]
+    [goog.style       :as gstyle]
+    [hiccups.runtime  :as hrt]
     [ajax.core :refer [GET POST PUT DELETE]]))
 
 
@@ -77,25 +80,32 @@
 (def dom-clear-btn (gdom/getElementByClass "clear-completed"))
 
 
+(defn item-html [id content complete?]
+  "Generate HTML text <li> to represent a TODO item node."
+  (let [he-content (hrt/escape-html content)]
+    (html [:li (let [klass (if complete? {:class "completed"} {})
+                     dnone (case current-filter
+                             :all       {}
+                             :active    (if complete? {:style "display: none"} {})
+                             :completed (if complete? {} {:style "display: none"})
+                             {})]
+                 (merge klass dnone))
+           [:div {:class "view"}
+            [:input  {:class "toggle"
+                      :data-id id
+                      :type "checkbox"
+                      :checked complete?}]
+            [:label  {:data-id id} he-content]
+            [:button {:class "destroy"
+                      :data-id id}]]
+           [:input {:class "edit"
+                    :data-id id
+                    :value content}]])))
+
+
 (defn make-todo-node [id content complete?]
   (let [div (gdom/createElement "div")
-        txt (gstring/format
-      "<li %s>
-  <div class=\"view\">
-    <input class=\"toggle\" data-id=\"%s\" type=\"checkbox\" %s>
-    <label data-id=\"%s\">%s</label>
-    <button class=\"destroy\" data-id=\"%s\"></button>
-  </div>
-  <input class=\"edit\" data-id=\"%s\" value=\"%s\">
-</li>"
-      (let [klass (if complete? " class=\"completed\"" "")
-            dnone (case current-filter
-                    :all       ""
-                    :active    (if complete? "style=\"display: none\"" "")
-                    :completed (if complete? "" "style=\"display: none\"")
-                    "")]
-        (str klass " " dnone))
-      id (if complete? "checked" "") id content id id content)]
+        txt (item-html id content complete?)]
     (set! (.-innerHTML div) txt)
     div))
 

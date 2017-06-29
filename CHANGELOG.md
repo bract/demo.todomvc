@@ -10,7 +10,7 @@
 - [TODO] Replace implicit page load with `window.onload = function () { demo.todomvc.app.setup(); }`
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/resources/public/index.html
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/project.clj
-- [TODO] Use a Hiccup like library instead of string concatenation to create DOM nodes
+- Use Hiccups library (instead of string concatenation) to generate TODO item HTML
 - [TODO] Use Bract `0.3.1` components
 
 
