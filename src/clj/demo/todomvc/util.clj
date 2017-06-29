@@ -8,8 +8,6 @@
 
 
 (ns demo.todomvc.util
-  (:require
-    [clojure.java.io :as io])
   (:import
     [java.util UUID]))
 
@@ -18,8 +16,3 @@
   ^String
   []
   (.toString (UUID/randomUUID)))
-
-
-(defn read-index-html
-  []
-  (slurp (io/resource "public/index.html")))
