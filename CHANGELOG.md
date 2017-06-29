@@ -6,11 +6,12 @@
 
 ## [WIP] 0.3.1 / 2017-June-??
 
+- Use Clostache template on the server-side to render HTML with minified JS
 - Update ClojureScript version to 1.9.660
 - Replace implicit page load with JavaScript `window.onload` event handler
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/resources/public/index.html
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/project.clj
-- Use Hiccups library (instead of string concatenation) to generate TODO item HTML
+- Use Hiccups CLJS library (instead of string concatenation) to generate TODO item HTML
 - [TODO] Use Bract `0.3.1` components
 
 

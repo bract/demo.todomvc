@@ -12,10 +12,11 @@
                  [cljs-ajax "0.6.0"]         ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]         ; for dynamically generating HTML
                  ;; server-side web
-                 [ring/ring-core   "1.6.1"]
-                 [bract/bract.ring "0.3.1-SNAPSHOT"]  ; Ring support for Bract
-                 [calfpath         "0.4.0"]  ; server side web routing
-                 [http-kit         "2.2.0"]  ; web server
+                 [ring/ring-core                  "1.6.1"]
+                 [bract/bract.ring                "0.3.1-SNAPSHOT"]  ; Ring support for Bract
+                 [calfpath                        "0.4.0"]  ; server side web routing
+                 [de.ubercode.clostache/clostache "1.4.0" :exclusions [org.clojure/clojure]]  ; Mustache templates
+                 [http-kit                        "2.2.0"]  ; web server
                  ;; logging
                  [cambium/cambium.core           "0.9.0"]  ; for logs as data (builds on clojure/tools.logging)
                  [cambium/cambium.codec-cheshire "0.9.0"]  ; a JSON based codec for logs as data

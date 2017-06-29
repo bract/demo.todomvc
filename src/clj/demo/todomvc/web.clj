@@ -14,6 +14,7 @@
     [calfpath.core   :refer [->uri ->method ->get ->head ->options ->patch ->put ->post ->delete]]
     [cambium.core    :as log]
     [cheshire.core   :as cheshire]
+    [clostache.parser    :as clostache]
     [ring.util.response  :as rur]
     [demo.todomvc.config :as config]
     [demo.todomvc.db     :as db]
@@ -76,6 +77,11 @@
       (id-404 id))))
 
 
+(defn render-homepage-html
+  [minified-js?]
+  (clostache/render-resource "template/index.html" {:minified-js minified-js?}))
+
+
 (defn render-home []
   (log/with-logging-context {:endpoint "home"}
     (config/metrics "metrics.web.200")
@@ -83,7 +89,7 @@
      :headers {"Content-type" "text/html"}
      :body (if config/minify-js?
              config/index-html
-             (util/read-index-html))}))
+             (render-homepage-html false))}))
 
 
 (defn handler
