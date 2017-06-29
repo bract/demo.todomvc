@@ -252,4 +252,5 @@
   (setup-clear-completed))
 
 
-(setup)
+(defn ^:export main []
+  (setup))

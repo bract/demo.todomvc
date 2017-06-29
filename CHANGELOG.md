@@ -7,7 +7,7 @@
 ## [WIP] 0.3.1 / 2017-June-??
 
 - Update ClojureScript version to 1.9.660
-- [TODO] Replace implicit page load with `window.onload = function () { demo.todomvc.app.setup(); }`
+- Replace implicit page load with JavaScript `window.onload` event handler
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/resources/public/index.html
   - Ref: https://github.com/Day8/re-frame/blob/master/examples/todomvc/project.clj
 - Use Hiccups library (instead of string concatenation) to generate TODO item HTML

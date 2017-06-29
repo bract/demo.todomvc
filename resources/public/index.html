@@ -70,6 +70,9 @@
         <script src="/public/js/app.js"></script>
         <script type="text/javascript">
             goog.require("demo.todomvc.app");
+            window.onload = function() {
+                demo.todomvc.app.main();
+            }
         </script>
     </body>
 </html>

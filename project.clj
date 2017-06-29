@@ -34,30 +34,31 @@
                                     "resources/public/js/app.js"
                                     "resources/public/js/app.min.js"
                                     :target-path]
-  :cljsbuild {:builds [{:id "dev"
-                        :source-paths ["src/cljs"]
-                        :figwheel true
-                        :compiler {:main demo.todomvc.app
-                                   :asset-path "/public/js/out"
-                                   :output-to  "resources/public/js/app.js"
-                                   :output-dir "resources/public/js/out"
-                                   :pretty-print  true
-                                   :optimizations :none
-                                   :source-map    true
-                                   :source-map-timestamp true}}
-                       {:id "prod"
-                        :source-paths ["src/cljs"]
-                        :compiler {:output-to  "resources/public/js/app.min.js"
-                                   :output-dir "target/js/out"
-                                   :pretty-print  false
-                                   :optimizations :advanced}}]}
   :ring {:handler bract.ring.dev/handler
          :init    bract.ring.dev/init!
          :port    3000
          :nrepl   {:start? true :port 3001}}
-  :profiles {:dev {:dependencies [[bract/bract.dev "0.3.1-SNAPSHOT"]
-                                  [clj-liquibase   "0.6.0"]]
-                   :source-paths ["dev"]}
+  :profiles {:dev     {:dependencies [[bract/bract.dev "0.3.1-SNAPSHOT"]
+                                      [clj-liquibase   "0.6.0"]]
+                       :source-paths ["dev"]
+                       :cljsbuild {:builds [{:id "dev"
+                                             :source-paths ["src/cljs"]
+                                             :figwheel {:on-jsload "demo.todomvc.app/main"}
+                                             :compiler {:main demo.todomvc.app
+                                                        :asset-path "/public/js/out"
+                                                        :output-to  "resources/public/js/app.js"
+                                                        :output-dir "resources/public/js/out"
+                                                        :pretty-print  true
+                                                        :optimizations :none
+                                                        :source-map    true
+                                                        :source-map-timestamp true}}]}}
              :uberjar {:aot [bract.cli.main]
-                       :main ^:skip-aot bract.cli.main}}
+                       :main ^:skip-aot bract.cli.main
+                       :hooks [leiningen.cljsbuild]
+                       :cljsbuild {:builds [{:id "prod"
+                                             :source-paths ["src/cljs"]
+                                             :compiler {:output-to  "resources/public/js/app.min.js"
+                                                        :output-dir "target/js/out"
+                                                        :pretty-print  false
+                                                        :optimizations :advanced}}]}}}
   :aliases {"liquibase"  ["run" "-m" "liquibase"]})
