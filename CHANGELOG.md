@@ -15,7 +15,7 @@
 - Use Hiccups CLJS library (instead of string concatenation) to generate TODO item HTML
 - Hide unnecessary controls when there are no TODO items
 - Implement toggle-complete-all feature
-- [TODO] Use Bract `0.3.1` components
+- Use Bract `0.3.1` components
 
 
 ## 0.3.0 / 2017-June-19
