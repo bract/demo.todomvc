@@ -5,7 +5,7 @@
 - [Todo] Factor out Liquibase as a module
 
 
-## [WIP] 0.3.1 / 2017-June-??
+## 0.3.1 / 2017-June-30
 
 - Use Clostache template on the server-side to render HTML with minified JS
 - Update ClojureScript version to 1.9.660
@@ -15,7 +15,7 @@
 - Use Hiccups CLJS library (instead of string concatenation) to generate TODO item HTML
 - Hide unnecessary controls when there are no TODO items
 - Implement toggle-complete-all feature
-- Use Bract `0.3.1` components
+- Use Bract 0.3.1 components
 
 
 ## 0.3.0 / 2017-June-19
