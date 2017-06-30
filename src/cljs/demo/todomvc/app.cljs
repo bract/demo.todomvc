@@ -20,13 +20,16 @@
     * https://google.github.io/closure-library/api/goog.dom.query.html"
   (:import
     [goog.dom query])
+  (:require-macros
+    [hiccups.core :as hiccups :refer [html]])
   (:require
-    [goog.dom    :as gdom]
+    [goog.dom         :as gdom]
     [goog.dom.classes :as gclasses]
-    [goog.events :as gevents]
-    [goog.string :as gstring]
+    [goog.events      :as gevents]
+    [goog.string      :as gstring]
     [goog.string.format]
-    [goog.style  :as gstyle]
+    [goog.style       :as gstyle]
+    [hiccups.runtime  :as hrt]
     [ajax.core :refer [GET POST PUT DELETE]]))
 
 
@@ -66,36 +69,49 @@
 ;; ----- state -----
 
 
+(def todo-items [])  ; TODO items data, as returned by the web service
+
+
 (def current-filter :all)  ;; possible values -> :all :active :completed
 
 
 ;; ----- DOM elements -----
 
 
-(def dom-new-todo  (gdom/getElementByClass "new-todo"))
-(def dom-todo-list (gdom/getElementByClass "todo-list"))
-(def dom-clear-btn (gdom/getElementByClass "clear-completed"))
+(def dom-toggle-all-input (gdom/getElementByClass "toggle-all"))
+(def dom-toggle-all-label (aget (query ".main label") 0))
+(def dom-new-todo   (gdom/getElementByClass "new-todo"))
+(def dom-todo-list  (gdom/getElementByClass "todo-list"))
+(def dom-footer     (gdom/getElementByClass "footer"))
+(def dom-clear-btn  (gdom/getElementByClass "clear-completed"))
+
+
+(defn item-html [id content complete?]
+  "Generate HTML text <li> to represent a TODO item node."
+  (let [he-content (hrt/escape-html content)]
+    (html [:li (let [klass (if complete? {:class "completed"} {})
+                     dnone (case current-filter
+                             :all       {}
+                             :active    (if complete? {:style "display: none"} {})
+                             :completed (if complete? {} {:style "display: none"})
+                             {})]
+                 (merge klass dnone))
+           [:div {:class "view"}
+            [:input  {:class "toggle"
+                      :data-id id
+                      :type "checkbox"
+                      :checked complete?}]
+            [:label  {:data-id id} he-content]
+            [:button {:class "destroy"
+                      :data-id id}]]
+           [:input {:class "edit"
+                    :data-id id
+                    :value content}]])))
 
 
 (defn make-todo-node [id content complete?]
   (let [div (gdom/createElement "div")
-        txt (gstring/format
-      "<li %s>
-  <div class=\"view\">
-    <input class=\"toggle\" data-id=\"%s\" type=\"checkbox\" %s>
-    <label data-id=\"%s\">%s</label>
-    <button class=\"destroy\" data-id=\"%s\"></button>
-  </div>
-  <input class=\"edit\" data-id=\"%s\" value=\"%s\">
-</li>"
-      (let [klass (if complete? " class=\"completed\"" "")
-            dnone (case current-filter
-                    :all       ""
-                    :active    (if complete? "style=\"display: none\"" "")
-                    :completed (if complete? "" "style=\"display: none\"")
-                    "")]
-        (str klass " " dnone))
-      id (if complete? "checked" "") id content id id content)]
+        txt (item-html id content complete?)]
     (set! (.-innerHTML div) txt)
     div))
 
@@ -150,10 +166,34 @@
          :error-handler (ajax-error-when "deleting TODO")}))))
 
 
+;; ----- toggle-all setup -----
+
+
+(defn setup-toggle-all []
+  (gevents/listen
+    dom-toggle-all-label
+    goog.events.EventType.CLICK
+    (fn [event]
+      (let [uri  "/todos/complete/all/"
+            all? (every? #(get % "complete?") todo-items)
+            body (-> all? not str)]
+        (logf "-> [PUT %s]: '%s'" uri body)
+        (PUT uri {:body body
+                  :handler (fn [status] (list-todos))
+                  :error-handler (ajax-error-when "deleting completed TODO items")})))))
+
+
 ;; ----- update components -----
 
 
 (defn update-todos [todos]
+  (set! todo-items (into [] todos))  ; update global state
+  (let [todos? (boolean (seq todos))]
+    (gstyle/setElementShown dom-toggle-all-label todos?)  ; show/hide toggle-all button
+    (gstyle/setElementShown dom-footer todos?))           ; show/hide controls footer
+  (->> todos
+    (every? #(get % "complete?"))
+    (set! (.-checked dom-toggle-all-input)))              ; highlight the toggle-all button
   (gdom/removeChildren dom-todo-list)
   (doseq [{:strs [id content complete?]} todos]
     (let [node (make-todo-node id content complete?)]
@@ -165,9 +205,8 @@
                                     :complete-count   0}
                                    todos)]
     (set! (.-textContent (aget (query ".todo-count strong") 0)) incomplete-count)
-    (gstyle/setStyle dom-clear-btn "display" (if (pos? complete-count)
-                                               "block"
-                                               "none")))
+    ;; show element only when complete-count > 0
+    (gstyle/setElementShown dom-clear-btn (pos? complete-count)))
   (bind-event-handler (query "li label") goog.events.EventType.DBLCLICK edit-todo-text)
   (bind-event-handler (query "li .edit") goog.events.EventType.FOCUSOUT save-edited-todo)
   (bind-event-handler (query "li .edit") goog.events.EventType.KEYPRESS save-edited-todo)
@@ -182,16 +221,15 @@
 
 
 (defn setup-add-todo []
-  (let [element (gdom/getElementByClass "new-todo")]
-    (gevents/listen
-      element
-      goog.events.EventType.KEYPRESS
-      (fn [event]
-        (when (= 13 (.-keyCode event))  ; pressed Enter key?
-          (logf "-> [POST /todos/]: '%s'" (.-value element))
-          (POST "/todos/" {:body (.-value element)
-                           :handler (fn [status] (set! (.-value element) "") (list-todos))
-                           :error-handler (ajax-error-when "adding new TODO item")}))))))
+  (gevents/listen
+    dom-new-todo
+    goog.events.EventType.KEYPRESS
+    (fn [event]
+      (when (= 13 (.-keyCode event))  ; pressed Enter key?
+        (logf "-> [POST /todos/]: '%s'" (.-value dom-new-todo))
+        (POST "/todos/" {:body (.-value dom-new-todo)
+                         :handler (fn [status] (set! (.-value dom-new-todo) "") (list-todos))
+                         :error-handler (ajax-error-when "adding new TODO item")})))))
 
 
 ;; ----- filter setup -----
@@ -236,10 +274,12 @@
 
 
 (defn setup []
+  (setup-toggle-all)
   (setup-add-todo)
   (list-todos)
   (setup-filters)
   (setup-clear-completed))
 
 
-(setup)
+(defn ^:export main []
+  (setup))

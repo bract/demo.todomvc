@@ -27,6 +27,9 @@
 (asphalt/defsql sql-update-complete "UPDATE todos SET complete = $complete, updated = now() WHERE todo_id = $id")
 
 
+(asphalt/defsql sql-toggle-complete "UPDATE todos SET complete = $complete, updated = now()")
+
+
 (asphalt/defsql sql-delete-item     "DELETE FROM todos WHERE todo_id = $id")
 
 
@@ -54,6 +57,11 @@
 (defn update-complete
   [id complete?]
   (sql-update-complete config/db {:id id :complete complete?}))
+
+
+(defn toggle-complete
+  [complete?]
+  (sql-toggle-complete config/db {:complete complete?}))
 
 
 (defn delete-item

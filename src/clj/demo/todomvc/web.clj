@@ -14,6 +14,7 @@
     [calfpath.core   :refer [->uri ->method ->get ->head ->options ->patch ->put ->post ->delete]]
     [cambium.core    :as log]
     [cheshire.core   :as cheshire]
+    [clostache.parser    :as clostache]
     [ring.util.response  :as rur]
     [demo.todomvc.config :as config]
     [demo.todomvc.db     :as db]
@@ -76,6 +77,17 @@
       (id-404 id))))
 
 
+(defn toggle-complete [complete?]
+  (log/with-logging-context {:endpoint "toggle-complete"}
+    (db/toggle-complete complete?)
+    (json-200)))
+
+
+(defn render-homepage-html
+  [minified-js?]
+  (clostache/render-resource "template/index.html" {:minified-js minified-js?}))
+
+
 (defn render-home []
   (log/with-logging-context {:endpoint "home"}
     (config/metrics "metrics.web.200")
@@ -83,7 +95,7 @@
      :headers {"Content-type" "text/html"}
      :body (if config/minify-js?
              config/index-html
-             (util/read-index-html))}))
+             (render-homepage-html false))}))
 
 
 (defn handler
@@ -93,6 +105,8 @@
                                   :get  (list-todos)
                                   :post (add-todo (slurp (:body request))))
     "/todos/complete/"     []   (->delete request (delete-complete-todos))
+    "/todos/complete/all/" []   (->put    request (toggle-complete (= "true" (string/lower-case
+                                                                               (slurp (:body request))))))
     "/todos/:id/"          [id] (->delete request (delete-todo id))
     "/todos/:id/content/"  [id] (->put    request (update-content  id (slurp (:body request))))
     "/todos/:id/complete/" [id] (->put    request (update-complete id (= "true" (string/lower-case

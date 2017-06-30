@@ -72,6 +72,27 @@
     (is (= true (sql-find-complete config/db {:id id})))))
 
 
+(deftest test-toggle-items
+  (let [id1 (util/uuid)
+        id2 (util/uuid)
+        id3 (util/uuid)]
+    (testing "fresh inserts"
+      (db/insert-item id1 "foo")
+      (db/insert-item id2 "bar")
+      (db/insert-item id3 "baz")
+      (is (= [false false false] (mapv :complete? (db/find-all)))))
+    (testing "all-incomplete -> all-complete"
+      (db/toggle-complete true)
+      (is (= [true true true] (mapv :complete? (db/find-all)))))
+    (testing "all-complete -> all-incomplete"
+      (db/toggle-complete false)
+      (is (= [false false false] (mapv :complete? (db/find-all)))))
+    (testing "some-complete -> all-complete"
+      (db/update-complete id1 true)
+      (db/toggle-complete true)
+      (is (= [true true true] (mapv :complete? (db/find-all)))))))
+
+
 (deftest test-delete-item
   (let [id1 (util/uuid)
         id2 (util/uuid)]

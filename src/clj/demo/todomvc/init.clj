@@ -9,14 +9,14 @@
 
 (ns demo.todomvc.init
   (:require
-    [cambium.codec :as codec]
+    [cambium.codec       :as codec]
+    [clostache.parser    :as clostache]
     [logback-bundle.json.flat-layout :as flat]
-    [org.httpkit.server :as server]
+    [org.httpkit.server  :as server]
     [demo.todomvc.config :as config]
     [cumulus.core        :as cumulus]
     [clj-dbcp.core       :as dbcp]
-    [demo.todomvc.web    :as web]
-    [demo.todomvc.util   :as util]))
+    [demo.todomvc.web    :as web]))
 
 
 (defn log-init
@@ -48,9 +48,7 @@
   (when-let [minify-js? (->> (config/ctx-config context)
                           config/render-minjs?)]
     (alter-var-root #'config/minify-js? (constantly true))
-    (alter-var-root #'config/index-html (-> (util/read-index-html)
-                                          (.replace "app.js" "app.min.js")
-                                          constantly)))
+    (alter-var-root #'config/index-html (constantly (web/render-homepage-html true))))
   ;; return ring handler in the context
   (assoc context (key config/ring-handler) web/handler))
 

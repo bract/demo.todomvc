@@ -35,7 +35,7 @@
 (def ^:redef minify-js? false)
 
 
-(def ^:redef index-html (util/read-index-html))
+(def ^:redef index-html nil)
 
 
 (log/deflogger metrics "METRICS")
