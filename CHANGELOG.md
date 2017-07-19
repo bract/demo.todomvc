@@ -1,8 +1,17 @@
 # demo.todomvc Change Log
 
 ## Todo
-- [Todo] Move stateful vars from `config` to `global` namespace
 - [Todo] Factor out Liquibase as a module
+
+
+## [WIP] 0.4.0 / 2017-July-??
+
+- [TODO] Use Bract 0.4.0
+  - [TODO] Use the GA version of Bract 0.4.0
+- [Todo] Bump CLJS version to 1.9.671
+- [Todo] Move stateful vars from `config` to `global` namespace
+- [TODO] Rename namespace `demo.todomvc.config` to `demo.todomvc.keydef`
+- [TODO] Implement `version` CLI command
 
 
 ## 0.3.1 / 2017-June-30
