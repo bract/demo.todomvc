@@ -12,7 +12,7 @@
 - Bump Asphalt version to 0.6.2
 - Move global/stateful vars from `demo.todomvc.config` to `demo.todomvc.global` namespace
 - Rename namespace `demo.todomvc.config` to `demo.todomvc.keydef`
-- [TODO] Implement `version` CLI command
+- Implement `version` CLI command using custom `demo.todomvc.main/-main` entrypoint
 
 
 ## 0.3.1 / 2017-June-30

@@ -3,6 +3,7 @@
   :url "https://github.com/bract/demo.todomvc"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :resource-paths ["resources" "target/generated/resources"]  ; see :project-edn entry
   :source-paths ["src/clj"]
   :test-paths   ["test/clj"]
   :dependencies [[org.clojure/clojure "1.8.0"]
@@ -28,13 +29,17 @@
                  [asphalt  "0.6.2"]  ; for reading/writing databases using JDBC
                  ]
   :target-path "target/%s"
-  :plugins [[lein-cljsbuild "1.1.6" :exclusions [org.clojure/clojure]]
-            [lein-figwheel  "0.5.10"]
-            [lein-ring      "0.12.0"]]
+  :plugins [[lein-cljsbuild   "1.1.6" :exclusions [org.clojure/clojure]]
+            [lein-figwheel    "0.5.10"]
+            [lein-project-edn "0.2.0"]
+            [lein-ring        "0.12.0"]]
+  :hooks [leiningen.project-edn/activate]
   :clean-targets ^{:protect false} ["resources/public/js/out"
                                     "resources/public/js/app.js"
                                     "resources/public/js/app.min.js"
                                     :target-path]
+  :project-edn {:output-file "target/generated/resources/project.edn"
+                :verify-edn? true}
   :ring {:handler bract.ring.dev/handler
          :init    bract.ring.dev/init!
          :port    3000
@@ -54,7 +59,7 @@
                                                         :source-map    true
                                                         :source-map-timestamp true}}]}}
              :uberjar {:aot [bract.cli.main]
-                       :main ^:skip-aot bract.cli.main
+                       :main ^:skip-aot demo.todomvc.main
                        :hooks [leiningen.cljsbuild]
                        :cljsbuild {:builds [{:id "prod"
                                              :source-paths ["src/cljs"]
