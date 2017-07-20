@@ -8,7 +8,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [bract/bract.cli     "0.4.0-SNAPSHOT"]
                  ;; ClojureScript
-                 [org.clojure/clojurescript "1.9.660"]
+                 [org.clojure/clojurescript "1.9.671"]
                  [cljs-ajax "0.6.0"]         ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]         ; for dynamically generating HTML
                  ;; server-side web
