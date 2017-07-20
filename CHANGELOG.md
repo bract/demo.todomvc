@@ -6,7 +6,7 @@
 
 ## [WIP] 0.4.0 / 2017-July-??
 
-- [TODO] Use Bract 0.4.0
+- Use Bract 0.4.0
   - [TODO] Use the GA version of Bract 0.4.0
 - [Todo] Bump CLJS version to 1.9.671
 - [Todo] Move stateful vars from `config` to `global` namespace
