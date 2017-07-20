@@ -7,7 +7,7 @@
 ;   You must not remove this notice, or any other, from this software.
 
 
-(ns demo.todomvc.config
+(ns demo.todomvc.keydef
   (:require
     [clojure.java.io :as io]
     [keypin.core     :as keypin]

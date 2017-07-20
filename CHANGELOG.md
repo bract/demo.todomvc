@@ -10,7 +10,7 @@
   - [TODO] Use the GA version of Bract 0.4.0
 - Bump CLJS version to 1.9.671
 - Move global/stateful vars from `config` to `global` namespace
-- [TODO] Rename namespace `demo.todomvc.config` to `demo.todomvc.keydef`
+- Rename namespace `demo.todomvc.config` to `demo.todomvc.keydef`
 - [TODO] Implement `version` CLI command
 
 

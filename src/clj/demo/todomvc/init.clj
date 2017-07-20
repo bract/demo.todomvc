@@ -13,7 +13,7 @@
     [clostache.parser    :as clostache]
     [logback-bundle.json.flat-layout :as flat]
     [org.httpkit.server  :as server]
-    [demo.todomvc.config :as config]
+    [demo.todomvc.keydef :as kdef]
     [demo.todomvc.global :as global]
     [cumulus.core        :as cumulus]
     [clj-dbcp.core       :as dbcp]
@@ -30,8 +30,8 @@
   [context]
   ;; initialize DB connection pool
   ;; ideally handled with dependency injection, but we use var patching here as it is easy to understand for beginners
-  (let [data-source (->> (config/ctx-config context)         ; extract config from the context
-                      config/database-name                   ; extract database name from config
+  (let [data-source (->> (kdef/ctx-config context)           ; extract config from the context
+                      kdef/database-name                     ; extract database name from config
                       (array-map :target :filesys :database) ; create option map for cumulus
                       (cumulus/jdbc-params :h2)              ; create JDBC params for DBCP
                       dbcp/make-datasource)]
@@ -39,25 +39,25 @@
       constantly                     ; turn it into a function for alter-var-root
       (alter-var-root #'global/db))
     ;; return JDBC data source in the context; liquibase script needs it
-    (assoc context (key config/data-source) data-source)))
+    (assoc context (key kdef/data-source) data-source)))
 
 
 (defn ring-init
   [context]
   ;; store JS minification flag and corresponding patched HTML in vars
   ;; ideally handled with dependency injection, but we use var patching here as it is easy to understand for beginners
-  (when-let [minify-js? (->> (config/ctx-config context)
-                          config/render-minjs?)]
+  (when-let [minify-js? (->> (kdef/ctx-config context)
+                          kdef/render-minjs?)]
     (alter-var-root #'global/minify-js? (constantly true))
     (alter-var-root #'global/index-html (constantly (web/render-homepage-html true))))
   ;; return ring handler in the context
-  (assoc context (key config/ring-handler) web/handler))
+  (assoc context (key kdef/ring-handler) web/handler))
 
 
 (defn start-server
   [context]
-  (let [handler (config/ring-handler context)  ; get ring handler from the context
-        stopper (->> (config/ctx-config context)
-                  config/http-kit-opts
+  (let [handler (kdef/ring-handler context)  ; get ring handler from the context
+        stopper (->> (kdef/ctx-config context)
+                  kdef/http-kit-opts
                   (server/run-server handler))]
-    (assoc context (key config/ctx-stopper) stopper)))
+    (assoc context (key kdef/ctx-stopper) stopper)))
