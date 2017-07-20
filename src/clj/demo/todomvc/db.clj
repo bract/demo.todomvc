@@ -10,7 +10,7 @@
 (ns demo.todomvc.db
   (:require
     [asphalt.core        :as asphalt]
-    [demo.todomvc.config :as config]
+    [demo.todomvc.global :as global]
     [demo.todomvc.entity :as entity]
     [demo.todomvc.util   :as util]))
 
@@ -40,35 +40,35 @@
   ([content]
     (insert-item (util/uuid) content))
   ([id content]
-    (sql-insert-item config/db {:id id :content content})))
+    (sql-insert-item global/db {:id id :content content})))
 
 
 (defn find-all
   []
-  (->> (sql-find-all config/db [])
+  (->> (sql-find-all global/db [])
     (mapv #(apply entity/->Todo %))))
 
 
 (defn update-content
   [id content]
-  (sql-update-content config/db {:id id :content content}))
+  (sql-update-content global/db {:id id :content content}))
 
 
 (defn update-complete
   [id complete?]
-  (sql-update-complete config/db {:id id :complete complete?}))
+  (sql-update-complete global/db {:id id :complete complete?}))
 
 
 (defn toggle-complete
   [complete?]
-  (sql-toggle-complete config/db {:complete complete?}))
+  (sql-toggle-complete global/db {:complete complete?}))
 
 
 (defn delete-item
   [id]
-  (sql-delete-item config/db {:id id}))
+  (sql-delete-item global/db {:id id}))
 
 
 (defn delete-complete
   []
-  (sql-delete-complete config/db []))
+  (sql-delete-complete global/db []))

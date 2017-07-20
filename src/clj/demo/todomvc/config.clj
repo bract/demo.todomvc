@@ -10,10 +10,8 @@
 (ns demo.todomvc.config
   (:require
     [clojure.java.io :as io]
-    [keypin.core  :as keypin]
-    [keypin.util  :as kputil]
-    [cambium.core :as log]
-    [demo.todomvc.util :as util]))
+    [keypin.core     :as keypin]
+    [keypin.util     :as kputil]))
 
 
 (keypin/defkey
@@ -27,15 +25,3 @@
   database-name ["database.name"  string?      "Database name"]
   http-kit-opts ["http-kit.opts"  map?         "Options for HTTP-Kit"]
   render-minjs? ["minify.js.file" kputil/bool? "Whether render minified JavaScript file"])
-
-
-(def ^:redef db nil)
-
-
-(def ^:redef minify-js? false)
-
-
-(def ^:redef index-html nil)
-
-
-(log/deflogger metrics "METRICS")

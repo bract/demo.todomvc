@@ -14,6 +14,7 @@
     [logback-bundle.json.flat-layout :as flat]
     [org.httpkit.server  :as server]
     [demo.todomvc.config :as config]
+    [demo.todomvc.global :as global]
     [cumulus.core        :as cumulus]
     [clj-dbcp.core       :as dbcp]
     [demo.todomvc.web    :as web]))
@@ -36,7 +37,7 @@
                       dbcp/make-datasource)]
     (->> data-source
       constantly                     ; turn it into a function for alter-var-root
-      (alter-var-root #'config/db))
+      (alter-var-root #'global/db))
     ;; return JDBC data source in the context; liquibase script needs it
     (assoc context (key config/data-source) data-source)))
 
@@ -47,8 +48,8 @@
   ;; ideally handled with dependency injection, but we use var patching here as it is easy to understand for beginners
   (when-let [minify-js? (->> (config/ctx-config context)
                           config/render-minjs?)]
-    (alter-var-root #'config/minify-js? (constantly true))
-    (alter-var-root #'config/index-html (constantly (web/render-homepage-html true))))
+    (alter-var-root #'global/minify-js? (constantly true))
+    (alter-var-root #'global/index-html (constantly (web/render-homepage-html true))))
   ;; return ring handler in the context
   (assoc context (key config/ring-handler) web/handler))
 
