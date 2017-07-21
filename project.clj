@@ -58,7 +58,7 @@
                                                         :optimizations :none
                                                         :source-map    true
                                                         :source-map-timestamp true}}]}}
-             :uberjar {:aot [bract.cli.main]
+             :uberjar {:aot [demo.todomvc.main]
                        :main ^:skip-aot demo.todomvc.main
                        :hooks [leiningen.cljsbuild]
                        :cljsbuild {:builds [{:id "prod"
