@@ -13,7 +13,7 @@
     [clj-liquibase.core  :refer [defparser]]
     [bract.core.dev      :as core-dev]
     [bract.core.inducer  :as core-inducer]
-    [demo.todomvc.config :as config]
+    [demo.todomvc.keydef :as kdef]
     [demo.todomvc.init   :as init]))
 
 
@@ -27,5 +27,5 @@
                                             core-inducer/read-config     ; read config file(s) and populate context
                                             init/db-conn-init            ; populate JDBC data-source
                                             ])
-                      config/data-source)]
+                      kdef/data-source)]
     (apply cli/entry cmd {:datasource data-source :changelog changelog} args)))
