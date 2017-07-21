@@ -13,6 +13,8 @@
 - Move global/stateful vars from `demo.todomvc.config` to `demo.todomvc.global` namespace
 - Rename namespace `demo.todomvc.config` to `demo.todomvc.keydef`
 - Implement `version` CLI command using custom `demo.todomvc.main/-main` entrypoint
+- Make logging config work when using _lein-ring_
+  - Workaround for issue https://github.com/weavejester/lein-ring/issues/190
 
 
 ## 0.3.1 / 2017-June-30
