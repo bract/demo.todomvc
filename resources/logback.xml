@@ -171,7 +171,7 @@
     </root>
 
 
-    <logger name="bract.sample.app" additivity="false">
+    <logger name="demo.todomvc" additivity="false">
         <level value="${logback.level.app}"/>
 <if condition='p("logback.appender.console.enabled").equalsIgnoreCase("true")'><then>
         <appender-ref ref="STDOUT" />
