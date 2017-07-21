@@ -25,7 +25,7 @@
     edn/read-string
     :version
     println)
-  context)
+  (reduced context))
 
 
 (defn -main
