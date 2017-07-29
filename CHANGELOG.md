@@ -8,13 +8,14 @@
 
 - Use Bract 0.4.0
   - [TODO] Use the GA version of Bract 0.4.0
-- Bump CLJS version to 1.9.671
+- Bump CLJS version to 1.9.854
 - Bump Asphalt version to 0.6.2
 - Move global/stateful vars from `demo.todomvc.config` to `demo.todomvc.global` namespace
 - Rename namespace `demo.todomvc.config` to `demo.todomvc.keydef`
 - Implement `version` CLI command using custom `demo.todomvc.main/-main` entrypoint
 - Make logging config work when using _lein-ring_
   - Workaround for issue https://github.com/weavejester/lein-ring/issues/190
+- [TODO] Improve log archive management by capping the total archive size
 
 
 ## 0.3.1 / 2017-June-30
