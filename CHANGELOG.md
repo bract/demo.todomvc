@@ -15,7 +15,7 @@
 - Implement `version` CLI command using custom `demo.todomvc.main/-main` entrypoint
 - Make logging config work when using _lein-ring_
   - Workaround for issue https://github.com/weavejester/lein-ring/issues/190
-- [TODO] Improve log archive management by capping the total archive size
+- Improve log archive management by capping the total archive size
 
 
 ## 0.3.1 / 2017-June-30
