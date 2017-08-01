@@ -9,7 +9,6 @@
 
 (ns demo.todomvc.keydef
   (:require
-    [clojure.java.io :as io]
     [keypin.core     :as keypin]
     [keypin.util     :as kputil]))
 
