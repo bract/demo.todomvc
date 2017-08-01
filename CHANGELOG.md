@@ -4,7 +4,7 @@
 - [Todo] Factor out Liquibase as a module
 
 
-## [WIP] 0.4.0 / 2017-July-??
+## [WIP] 0.4.0 / 2017-August-??
 
 - Use Bract 0.4.0
   - [TODO] Use the GA version of Bract 0.4.0
