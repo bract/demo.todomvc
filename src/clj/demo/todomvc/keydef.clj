@@ -9,8 +9,8 @@
 
 (ns demo.todomvc.keydef
   (:require
-    [keypin.core     :as keypin]
-    [keypin.util     :as kputil]))
+    [keypin.core :as keypin]
+    [keypin.util :as kputil]))
 
 
 (keypin/defkey
