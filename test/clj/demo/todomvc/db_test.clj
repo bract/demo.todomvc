@@ -9,12 +9,12 @@
 
 (ns demo.todomvc.db-test
   (:require
-    [clojure.test           :refer :all]
-    [asphalt.core           :as asphalt]
-    [demo.todomvc.test-util :as tu]
-    [demo.todomvc.global    :as global]
-    [demo.todomvc.db        :as db]
-    [demo.todomvc.util      :as util]))
+    [clojure.test        :refer :all]
+    [asphalt.core        :as asphalt]
+    [demo.todomvc.global :as global]
+    [demo.todomvc.db     :as db]
+    [demo.todomvc.util   :as util]
+    [demo.todomvc.test-init]))
 
 
 (asphalt/defsql sql-wipe-todos    "DELETE FROM todos")

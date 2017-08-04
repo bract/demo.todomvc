@@ -7,7 +7,7 @@
 ;   You must not remove this notice, or any other, from this software.
 
 
-(ns demo.todomvc.test-util
+(ns demo.todomvc.test-init
   (:require
     [bract.core.dev :as core-dev]))
 
