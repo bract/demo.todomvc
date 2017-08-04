@@ -26,7 +26,7 @@
                        "logfile.async.queue.size"
                        "logfile.async.discard.at"
                        "net.spy.log.LoggerImpl"]
- "logback.statuslistener.enabled"    "true"
+ "logback.statuslistener.enabled"    "false"  ; false disables the verbose Logback initialization output
  "logback.level.root"                "INFO"
  "logback.level.app"                 "DEBUG"
  "logback.appender.console.enabled"  "true"
