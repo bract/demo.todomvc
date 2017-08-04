@@ -9,16 +9,7 @@
 
 (ns demo.todomvc.test-util
   (:require
-    [bract.ring.dev :as ring-dev]
-    [clojure.test :refer :all]))
+    [bract.core.dev :as core-dev]))
 
 
-(defonce config nil)
-
-
-(defn update-config!
-  [app-config]
-  (alter-var-root #'config (fn [_] app-config)))
-
-
-(ring-dev/init-once!)
+(core-dev/ensure-init)
