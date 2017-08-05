@@ -10,7 +10,8 @@
 (ns demo.todomvc.db
   (:require
     [asphalt.core        :as asphalt]
-    [demo.todomvc.config :as config]
+    [cambium.core        :as log]
+    [demo.todomvc.global :as global]
     [demo.todomvc.entity :as entity]
     [demo.todomvc.util   :as util]))
 
@@ -38,37 +39,45 @@
 
 (defn insert-item
   ([content]
+    (log/debug "Adding TODO item")
     (insert-item (util/uuid) content))
   ([id content]
-    (sql-insert-item config/db {:id id :content content})))
+    (log/debug "Adding TODO item")
+    (sql-insert-item global/db {:id id :content content})))
 
 
 (defn find-all
   []
-  (->> (sql-find-all config/db [])
+  (log/debug "Finding TODO items")
+  (->> (sql-find-all global/db [])
     (mapv #(apply entity/->Todo %))))
 
 
 (defn update-content
   [id content]
-  (sql-update-content config/db {:id id :content content}))
+  (log/debug "Updating TODO items")
+  (sql-update-content global/db {:id id :content content}))
 
 
 (defn update-complete
   [id complete?]
-  (sql-update-complete config/db {:id id :complete complete?}))
+  (log/debug (str "Marking TODO item as " (if complete? "complete" "incomplete")))
+  (sql-update-complete global/db {:id id :complete complete?}))
 
 
 (defn toggle-complete
   [complete?]
-  (sql-toggle-complete config/db {:complete complete?}))
+  (log/debug (str "Marking all TODO items as " (if complete? "complete" "incomplete")))
+  (sql-toggle-complete global/db {:complete complete?}))
 
 
 (defn delete-item
   [id]
-  (sql-delete-item config/db {:id id}))
+  (log/debug (str "Deleting TODO item"))
+  (sql-delete-item global/db {:id id}))
 
 
 (defn delete-complete
   []
-  (sql-delete-complete config/db []))
+  (log/debug (str "Deleting all TODO items"))
+  (sql-delete-complete global/db []))

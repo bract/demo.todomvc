@@ -20,12 +20,13 @@
                        "logfile.metrics.text.name"
                        "logfile.max.filesize"
                        "logfile.maxhistory.days"
+                       "logfile.archive.totalsize"
                        "logfile.json.pretty.print"
                        "logfile.immediate.flush"
                        "logfile.async.queue.size"
                        "logfile.async.discard.at"
                        "net.spy.log.LoggerImpl"]
- "logback.statuslistener.enabled"    "true"
+ "logback.statuslistener.enabled"    "false"  ; false disables the verbose Logback initialization output
  "logback.level.root"                "INFO"
  "logback.level.app"                 "DEBUG"
  "logback.appender.console.enabled"  "true"
@@ -37,6 +38,7 @@
  "logfile.metrics.text.name"         "logs/metrics_text.log"
  "logfile.max.filesize"              "100MB"
  "logfile.maxhistory.days"           "10"
+ "logfile.archive.totalsize"         "10GB"
  "logfile.json.pretty.print"         "false"
  "logfile.immediate.flush"           "true"
  "logfile.async.queue.size"          "500"

@@ -1,6 +1,4 @@
 {"parent.config.filenames" "baseconfig.edn"
- "dev-inducers"            [(bract.core.inducer/config-hook               ; record the config
-                              demo.todomvc.test-util/update-config!)
-                            bract.core.dev/record-context!                ; record the context for dev workflow
-                            ]
+ "dev-inducers"            [;; record the context for dev workflow
+                            bract.core.dev/record-context!]
  "minify.js.file" false}

@@ -28,7 +28,7 @@ You can build the app locally and start the server as follows:
 
 ```shell
 $ lein do clean, uberjar         # implicitly calls `lein cljsbuild once`
-$ java -jar target/uberjar/demo.todomvc-0.3.1-standalone.jar -vf config.edn
+$ java -jar target/uberjar/demo.todomvc-0.4.0-SNAPSHOT-standalone.jar -vf config.edn
 ```
 
 Alternatively, you may want to run it as follows in development (but logging configuration may be out of control):
@@ -72,7 +72,7 @@ you may override the default configuration by specifying as such in the config f
 "logback.appender.textfile.enabled" "false"
 ```
 
-**Note:** Logging config override may not work with `lein-ring` as Jetty causes pre-initialization of logging.
+**Note:** Jetty server logs (lein-ring) are configured in `test/clj/jetty-logging.properties` to appear in console only.
 
 
 ## License

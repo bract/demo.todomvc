@@ -9,12 +9,12 @@
 
 (ns demo.todomvc.db-test
   (:require
-    [clojure.test           :refer :all]
-    [asphalt.core           :as asphalt]
-    [demo.todomvc.test-util :as tu]
-    [demo.todomvc.config    :as config]
-    [demo.todomvc.db        :as db]
-    [demo.todomvc.util      :as util]))
+    [clojure.test        :refer :all]
+    [asphalt.core        :as asphalt]
+    [demo.todomvc.global :as global]
+    [demo.todomvc.db     :as db]
+    [demo.todomvc.util   :as util]
+    [demo.todomvc.test-init]))
 
 
 (asphalt/defsql sql-wipe-todos    "DELETE FROM todos")
@@ -35,18 +35,18 @@
 (defn db-test-wrap
   "Wipe tables"
   [f]
-  (sql-wipe-todos config/db [])
+  (sql-wipe-todos global/db [])
   (f)
-  (sql-wipe-todos config/db []))
+  (sql-wipe-todos global/db []))
 
 
 (use-fixtures :each db-test-wrap)
 
 
 (deftest test-insert-item
-  (is (= 0 (sql-count-todos config/db [])))
+  (is (= 0 (sql-count-todos global/db [])))
   (is (= 1 (db/insert-item "foo")))
-  (is (= 1 (sql-count-todos config/db []))))
+  (is (= 1 (sql-count-todos global/db []))))
 
 
 (deftest test-retrieve-all
@@ -67,9 +67,9 @@
   (let [id (util/uuid)]
     (db/insert-item id "foo")
     (db/update-content id "bar")
-    (is (= "bar" (sql-find-content config/db {:id id})))
+    (is (= "bar" (sql-find-content global/db {:id id})))
     (db/update-complete id true)
-    (is (= true (sql-find-complete config/db {:id id})))))
+    (is (= true (sql-find-complete global/db {:id id})))))
 
 
 (deftest test-toggle-items

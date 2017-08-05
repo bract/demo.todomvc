@@ -7,18 +7,9 @@
 ;   You must not remove this notice, or any other, from this software.
 
 
-(ns demo.todomvc.test-util
+(ns demo.todomvc.test-init
   (:require
-    [bract.ring.dev :as ring-dev]
-    [clojure.test :refer :all]))
+    [bract.core.dev :as core-dev]))
 
 
-(defonce config nil)
-
-
-(defn update-config!
-  [app-config]
-  (alter-var-root #'config (fn [_] app-config)))
-
-
-(ring-dev/init-once!)
+(core-dev/ensure-init)

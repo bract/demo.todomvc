@@ -1,19 +1,20 @@
-(defproject bract/demo.todomvc "0.3.1"
+(defproject bract/demo.todomvc "0.4.0-SNAPSHOT"
   :description "Demo TodoMVC app using Clojure, ClojureScript and the Bract framework"
   :url "https://github.com/bract/demo.todomvc"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :resource-paths ["resources" "target/generated/resources"]  ; see :project-edn entry
   :source-paths ["src/clj"]
   :test-paths   ["test/clj"]
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [bract/bract.cli     "0.3.1"]
+                 [bract/bract.cli     "0.4.0"]
                  ;; ClojureScript
-                 [org.clojure/clojurescript "1.9.660"]
+                 [org.clojure/clojurescript "1.9.854"]
                  [cljs-ajax "0.6.0"]         ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]         ; for dynamically generating HTML
                  ;; server-side web
                  [ring/ring-core                  "1.6.1"]
-                 [bract/bract.ring                "0.3.1"]  ; Ring support for Bract
+                 [bract/bract.ring                "0.4.0"]  ; Ring support for Bract
                  [calfpath                        "0.4.0"]  ; server side web routing
                  [de.ubercode.clostache/clostache "1.4.0" :exclusions [org.clojure/clojure]]  ; Mustache templates
                  [http-kit                        "2.2.0"]  ; web server
@@ -25,21 +26,25 @@
                  [com.h2database/h2 "1.4.196"]  ; the embedded H2 database
                  [cumulus  "0.1.2"]  ; for easily deriving JDBC connection params
                  [clj-dbcp "0.9.0"]  ; for making database connection pool
-                 [asphalt  "0.6.0"]  ; for reading/writing databases using JDBC
+                 [asphalt  "0.6.2"]  ; for reading/writing databases using JDBC
                  ]
   :target-path "target/%s"
-  :plugins [[lein-cljsbuild "1.1.6" :exclusions [org.clojure/clojure]]
-            [lein-figwheel  "0.5.10"]
-            [lein-ring      "0.12.0"]]
+  :plugins [[lein-cljsbuild   "1.1.6" :exclusions [org.clojure/clojure]]
+            [lein-figwheel    "0.5.10"]
+            [lein-project-edn "0.2.0"]
+            [lein-ring        "0.12.0"]]
+  :hooks [leiningen.project-edn/activate]
   :clean-targets ^{:protect false} ["resources/public/js/out"
                                     "resources/public/js/app.js"
                                     "resources/public/js/app.min.js"
                                     :target-path]
+  :project-edn {:output-file "target/generated/resources/project.edn"
+                :verify-edn? true}
   :ring {:handler bract.ring.dev/handler
          :init    bract.ring.dev/init!
          :port    3000
          :nrepl   {:start? true :port 3001}}
-  :profiles {:dev     {:dependencies [[bract/bract.dev "0.3.1"]
+  :profiles {:dev     {:dependencies [[bract/bract.dev "0.4.0"]
                                       [clj-liquibase   "0.6.0"]]
                        :source-paths ["dev"]
                        :cljsbuild {:builds [{:id "dev"
@@ -53,8 +58,8 @@
                                                         :optimizations :none
                                                         :source-map    true
                                                         :source-map-timestamp true}}]}}
-             :uberjar {:aot [bract.cli.main]
-                       :main ^:skip-aot bract.cli.main
+             :uberjar {:aot [demo.todomvc.main]
+                       :main ^:skip-aot demo.todomvc.main
                        :hooks [leiningen.cljsbuild]
                        :cljsbuild {:builds [{:id "prod"
                                              :source-paths ["src/cljs"]

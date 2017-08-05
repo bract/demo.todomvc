@@ -31,15 +31,15 @@
     <appender name="JsonFileApp"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${logfile.app.json.name:-logs/application_json.log}</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
           <!-- daily rollover -->
           <fileNamePattern>${logfile.app.json.name:-logs/application_json.log}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
-          <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-            <!-- or whenever the file size reaches 100MB -->
-            <maxFileSize>${logfile.max.filesize:-100MB}</maxFileSize>
-          </timeBasedFileNamingAndTriggeringPolicy>
+          <!-- or whenever the file size reaches 100MB -->
+          <maxFileSize>${logfile.max.filesize:-100MB}</maxFileSize>
           <!-- keep 10 days worth of history -->
           <maxHistory>${logfile.maxhistory.days:-10}</maxHistory>
+          <!-- total history size capped at max 10GB -->
+          <totalSizeCap>${logfile.archive.totalsize:-10GB}</totalSizeCap>
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
@@ -60,15 +60,15 @@
     <appender name="JsonFileMetrics"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${logfile.metrics.json.name:-logs/metrics_json.log}</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
           <!-- daily rollover -->
           <fileNamePattern>${logfile.metrics.json.name:-logs/metrics_json.log}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
-          <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-            <!-- or whenever the file size reaches 100MB -->
-            <maxFileSize>${logfile.max.filesize:-100MB}</maxFileSize>
-          </timeBasedFileNamingAndTriggeringPolicy>
+          <!-- or whenever the file size reaches 100MB -->
+          <maxFileSize>${logfile.max.filesize:-100MB}</maxFileSize>
           <!-- keep 10 days worth of history -->
           <maxHistory>${logfile.maxhistory.days:-10}</maxHistory>
+          <!-- total history size capped at max 10GB -->
+          <totalSizeCap>${logfile.archive.totalsize:-10GB}</totalSizeCap>
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
@@ -171,7 +171,7 @@
     </root>
 
 
-    <logger name="bract.sample.app" additivity="false">
+    <logger name="demo.todomvc" additivity="false">
         <level value="${logback.level.app}"/>
 <if condition='p("logback.appender.console.enabled").equalsIgnoreCase("true")'><then>
         <appender-ref ref="STDOUT" />

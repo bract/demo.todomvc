@@ -16,7 +16,7 @@
     [cheshire.core   :as cheshire]
     [clostache.parser    :as clostache]
     [ring.util.response  :as rur]
-    [demo.todomvc.config :as config]
+    [demo.todomvc.global :as global]
     [demo.todomvc.db     :as db]
     [demo.todomvc.util   :as util]))
 
@@ -25,14 +25,14 @@
   ([]
     (json-200 {:status "success"}))
   ([data]
-    (config/metrics "metrics.web.200")
+    (global/metrics "metrics.web.200")
     {:status 200
      :headers {"Content-type" "application/json"}
      :body (cheshire/generate-string data)}))
 
 
 (defn id-404 [id]
-  (config/metrics {:id id} "metrics.web.404")
+  (global/metrics {:id id} "metrics.web.404")
   {:status 404
    :headers {"Content-type" "text/plain"}
    :body (format "Todo ID '%s' not found" id)})
@@ -90,11 +90,11 @@
 
 (defn render-home []
   (log/with-logging-context {:endpoint "home"}
-    (config/metrics "metrics.web.200")
+    (global/metrics "metrics.web.200")
     {:status 200
      :headers {"Content-type" "text/html"}
-     :body (if config/minify-js?
-             config/index-html
+     :body (if global/minify-js?
+             global/index-html
              (render-homepage-html false))}))
 
 
@@ -112,8 +112,8 @@
     "/todos/:id/complete/" [id] (->put    request (update-complete id (= "true" (string/lower-case
                                                                                   (slurp (:body request))))))
     "/public/*"            []   (->get    request (if-let [response (rur/resource-response (subs (:uri request) 1))]
-                                                    (do (config/metrics "metrics.web.200") response)
-                                                    (do (config/metrics {:uri (:uri request)} "metrics.web.404")
+                                                    (do (global/metrics "metrics.web.200") response)
+                                                    (do (global/metrics {:uri (:uri request)} "metrics.web.404")
                                                       {:status 404 :body "Not found"})))
     "/favicon.ico"         []   (->get    request (rur/redirect "/public/favicon.ico"))
     "/"                    []   (->get    request (render-home))))
