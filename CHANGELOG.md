@@ -4,7 +4,7 @@
 - [Todo] Factor out Liquibase as a module
 
 
-## [WIP] 0.4.0 / 2017-August-??
+## 0.4.0 / 2017-August-05
 
 - Use Bract 0.4.0
 - Bump CLJS version to 1.9.854
