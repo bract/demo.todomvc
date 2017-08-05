@@ -18,18 +18,12 @@
 
 
 (asphalt/defsql sql-wipe-todos    "DELETE FROM todos")
-(asphalt/defsql sql-count-todos   "SELECT COUNT(*) FROM todos"                     {:make-conn-worker
-                                                                                    (constantly
-                                                                                      (partial asphalt/query
-                                                                                        asphalt/fetch-single-value))})
-(asphalt/defsql sql-find-content  "SELECT content FROM todos WHERE todo_id = $id"  {:make-conn-worker
-                                                                                    (constantly
-                                                                                      (partial asphalt/query
-                                                                                        asphalt/fetch-single-value))})
-(asphalt/defsql sql-find-complete "SELECT complete FROM todos WHERE todo_id = $id" {:make-conn-worker
-                                                                                    (constantly
-                                                                                      (partial asphalt/query
-                                                                                        asphalt/fetch-single-value))})
+(asphalt/defsql sql-count-todos   "SELECT COUNT(*) FROM todos"                     {:result-set-worker
+                                                                                    asphalt/fetch-single-value})
+(asphalt/defsql sql-find-content  "SELECT content FROM todos WHERE todo_id = $id"  {:result-set-worker
+                                                                                    asphalt/fetch-single-value})
+(asphalt/defsql sql-find-complete "SELECT complete FROM todos WHERE todo_id = $id" {:result-set-worker
+                                                                                    asphalt/fetch-single-value})
 
 
 (defn db-test-wrap
