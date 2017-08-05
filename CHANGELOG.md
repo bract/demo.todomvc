@@ -7,7 +7,6 @@
 ## [WIP] 0.4.0 / 2017-August-??
 
 - Use Bract 0.4.0
-  - [TODO] Use the GA version of Bract 0.4.0
 - Bump CLJS version to 1.9.854
 - Bump Asphalt version to 0.6.2
 - Move global/stateful vars from `demo.todomvc.config` to `demo.todomvc.global` namespace
