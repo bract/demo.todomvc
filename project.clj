@@ -26,7 +26,7 @@
                  [com.h2database/h2 "1.4.196"]  ; the embedded H2 database
                  [cumulus  "0.1.2"]  ; for easily deriving JDBC connection params
                  [clj-dbcp "0.9.0"]  ; for making database connection pool
-                 [asphalt  "0.6.2"]  ; for reading/writing databases using JDBC
+                 [asphalt  "0.6.3"]  ; for reading/writing databases using JDBC
                  ]
   :target-path "target/%s"
   :plugins [[lein-cljsbuild   "1.1.6" :exclusions [org.clojure/clojure]]
