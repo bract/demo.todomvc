@@ -3,9 +3,9 @@
                         "demo.todomvc.init/db-conn-init"
                         "demo.todomvc.init/ring-init"
                         (bract.core.inducer/run-config-inducers
-                          "dev-inducers")
+                          "dev.inducers")
                         "bract.core.inducer/invoke-launcher"]
- "dev-inducers"        []  ; no-op for production
+ "dev.inducers"        []  ; no-op for production
  "bract.core.launcher" "demo.todomvc.init/start-server"
  ;; logging config
  "bract.core.exports" ["logback.statuslistener.enabled"
