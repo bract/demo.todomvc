@@ -4,6 +4,13 @@
 - [Todo] Factor out Liquibase as a module
 
 
+## [WIP] 0.4.1 / 2017-August-??
+
+- [TODO] Use bract.core 0.4.1
+- [TODO] Bump Asphalt version to 0.6.3
+- Use new Asphalt 0.6.2 option `:result-set-worker` in tests
+
+
 ## 0.4.0 / 2017-August-05
 
 - Use Bract 0.4.0
