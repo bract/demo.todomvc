@@ -6,10 +6,10 @@
   :resource-paths ["resources" "target/generated/resources"]  ; see :project-edn entry
   :source-paths ["src/clj"]
   :test-paths   ["test/clj"]
-  :dependencies [[org.clojure/clojure "1.8.0"]
+  :dependencies [[org.clojure/clojure "1.9.0"]
                  [bract/bract.cli     "0.5.0-SNAPSHOT"]
                  ;; ClojureScript
-                 [org.clojure/clojurescript "1.9.854"]
+                 [org.clojure/clojurescript "1.9.946"]
                  [cljs-ajax "0.6.0"]         ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]         ; for dynamically generating HTML
                  ;; server-side web
