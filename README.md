@@ -28,7 +28,7 @@ You can build the app locally and start the server as follows:
 
 ```shell
 $ lein do clean, uberjar         # implicitly calls `lein cljsbuild once`
-$ java -jar target/uberjar/demo.todomvc-0.4.1-standalone.jar -vf config.edn
+$ java -jar target/uberjar/demo.todomvc-0.5.0-SNAPSHOT-standalone.jar -vf config/config.edn
 ```
 
 Alternatively, you may want to run it as follows in development (but logging configuration may be out of control):
@@ -77,7 +77,7 @@ you may override the default configuration by specifying as such in the config f
 
 ## License
 
-Copyright © 2017 Shantanu Kumar (kumar.shntanu@gmail.com, shantanu.kumar@concur.com)
+Copyright © 2017-2018 Shantanu Kumar (kumar.shntanu@gmail.com, shantanu.kumar@concur.com)
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.

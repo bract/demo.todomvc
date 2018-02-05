@@ -4,9 +4,16 @@
 - [Todo] Factor out Liquibase as a module
 
 
+## [WIP] 0.5.0 / 2018-February-??
+
+- [TODO] Use Bract 0.5.0
+- [TODO] Use Clojure 1.9.0
+- [TODO] Use Asphalt 0.6.5
+
+
 ## 0.4.1 / 2017-August-08
 
-- Use bract.core 0.4.1
+- Use Bract 0.4.1
 - Bump Asphalt version to 0.6.3
 - Use new Asphalt 0.6.2 option `:result-set-worker` in tests
 
