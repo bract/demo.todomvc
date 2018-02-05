@@ -43,7 +43,7 @@
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-          <layout class="logback_bundle.json.FlatJsonLayout">
+          <layout class="cambium.logback.json.FlatJsonLayout">
             <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
               <!-- prettyPrint is probably ok in dev, but usually not ideal in production: -->
               <prettyPrint>${logfile.json.pretty.print:-false}</prettyPrint>
@@ -72,7 +72,7 @@
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-          <layout class="logback_bundle.json.FlatJsonLayout">
+          <layout class="cambium.logback.json.FlatJsonLayout">
             <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
               <!-- prettyPrint is probably ok in dev, but usually not ideal in production: -->
               <prettyPrint>${logfile.json.pretty.print:-false}</prettyPrint>

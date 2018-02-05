@@ -11,7 +11,7 @@
   (:require
     [cambium.codec       :as codec]
     [clostache.parser    :as clostache]
-    [logback-bundle.json.flat-layout :as flat]
+    [cambium.logback.json.flat-layout :as flat]
     [org.httpkit.server  :as server]
     [demo.todomvc.keydef :as kdef]
     [demo.todomvc.global :as global]

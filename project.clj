@@ -19,9 +19,9 @@
                  [de.ubercode.clostache/clostache "1.4.0" :exclusions [org.clojure/clojure]]  ; Mustache templates
                  [http-kit                        "2.2.0"]  ; web server
                  ;; logging
-                 [cambium/cambium.core           "0.9.0"]  ; for logs as data (builds on clojure/tools.logging)
-                 [cambium/cambium.codec-cheshire "0.9.0"]  ; a JSON based codec for logs as data
-                 [logback-bundle/json-bundle     "0.3.0"]  ; a JSON based backing implementation
+                 [cambium/cambium.core           "0.9.1"]  ; for logs as data (builds on clojure/tools.logging)
+                 [cambium/cambium.codec-cheshire "0.9.1"]  ; a JSON based codec for logs as data
+                 [cambium/cambium.logback.json   "0.4.1"]  ; a JSON based backing implementation
                  ;; database
                  [com.h2database/h2 "1.4.196"]  ; the embedded H2 database
                  [cumulus  "0.1.2"]  ; for easily deriving JDBC connection params

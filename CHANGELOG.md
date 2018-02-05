@@ -11,7 +11,7 @@
   - Clojure 1.9.0
   - Asphalt 0.6.5
   - Calfpath 0.5.0
-  - [TODO] Cambium 0.9.1
+  - Cambium: API 0.9.1 and Logback-module 0.4.1
   - [TODO] Ring 1.6.3
   - [TODO] cljs-ajax 0.7.3
 
