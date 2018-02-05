@@ -10,7 +10,7 @@
   - Bract 0.5.0
   - Clojure 1.9.0
   - Asphalt 0.6.5
-  - [TODO] Calfpath 0.5.0
+  - Calfpath 0.5.0
   - [TODO] Cambium 0.9.1
   - [TODO] Ring 1.6.3
   - [TODO] cljs-ajax 0.7.3

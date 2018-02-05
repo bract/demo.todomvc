@@ -15,7 +15,7 @@
                  ;; server-side web
                  [ring/ring-core                  "1.6.1"]
                  [bract/bract.ring                "0.5.0-SNAPSHOT"]  ; Ring support for Bract
-                 [calfpath                        "0.4.0"]  ; server side web routing
+                 [calfpath                        "0.5.0"]  ; server side web routing
                  [de.ubercode.clostache/clostache "1.4.0" :exclusions [org.clojure/clojure]]  ; Mustache templates
                  [http-kit                        "2.2.0"]  ; web server
                  ;; logging
