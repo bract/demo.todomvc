@@ -13,7 +13,7 @@
                  [cljs-ajax "0.6.0"]         ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]         ; for dynamically generating HTML
                  ;; server-side web
-                 [ring/ring-core                  "1.6.1"]
+                 [ring/ring-core                  "1.6.3"]
                  [bract/bract.ring                "0.5.0-SNAPSHOT"]  ; Ring support for Bract
                  [calfpath                        "0.5.0"]  ; server side web routing
                  [de.ubercode.clostache/clostache "1.4.0" :exclusions [org.clojure/clojure]]  ; Mustache templates
@@ -32,7 +32,7 @@
   :plugins [[lein-cljsbuild   "1.1.6" :exclusions [org.clojure/clojure]]
             [lein-figwheel    "0.5.10"]
             [lein-project-edn "0.2.0"]
-            [lein-ring        "0.12.0"]]
+            [lein-ring        "0.12.3"]]
   :hooks [leiningen.project-edn/activate]
   :clean-targets ^{:protect false} ["resources/public/js/out"
                                     "resources/public/js/app.js"
