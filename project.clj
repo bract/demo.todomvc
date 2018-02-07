@@ -29,8 +29,8 @@
                  [asphalt  "0.6.5"]  ; for reading/writing databases using JDBC
                  ]
   :target-path "target/%s"
-  :plugins [[lein-cljsbuild   "1.1.6" :exclusions [org.clojure/clojure]]
-            [lein-figwheel    "0.5.10"]
+  :plugins [[lein-cljsbuild   "1.1.7" :exclusions [org.clojure/clojure]]
+            [lein-figwheel    "0.5.14"]
             [lein-project-edn "0.2.0"]
             [lein-ring        "0.12.3"]]
   :hooks [leiningen.project-edn/activate]
