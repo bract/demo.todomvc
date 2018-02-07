@@ -11,12 +11,12 @@
   - Clojure 1.9.0, ClojureScript 1.9.946
   - Asphalt 0.6.5
   - Calfpath 0.5.0
-  - Cambium: API 0.9.1 and Logback-module 0.4.1
+  - Cambium: API 0.9.1 and Logback module 0.4.1
   - Ring 1.6.3
   - Cljs-ajax 0.7.3
 - Use bract.ring wrappers
   - JSON output for /info and /health endpoints
-- [TODO] Display app version in /info result
+  - Display app version in /info result
 
 
 ## 0.4.1 / 2017-August-08

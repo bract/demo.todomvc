@@ -9,6 +9,9 @@
 
 (ns demo.todomvc.init
   (:require
+    [clojure.edn         :as edn]
+    [clojure.java.io     :as io]
+    [bract.core.keydef   :as core-kdef]
     [cambium.codec       :as codec]
     [clostache.parser    :as clostache]
     [cambium.logback.json.flat-layout :as flat]
@@ -24,6 +27,18 @@
   [context]
   (flat/set-decoder! codec/destringify-val)
   context)
+
+
+(defn info-init
+  [context]
+  (let [version (-> (io/resource "project.edn")
+                  slurp
+                  edn/read-string
+                  :version)
+        rt-info (core-kdef/ctx-runtime-info context)]
+    (assoc context (key core-kdef/ctx-runtime-info) (-> rt-info
+                                                      vec
+                                                      (conj (fn [] {:app-version version}))))))
 
 
 (defn db-conn-init
