@@ -1,12 +1,20 @@
-{"bract.core.inducers" ["bract.core.inducer/export-as-sysprops"
-                        "demo.todomvc.init/log-init"
-                        "demo.todomvc.init/db-conn-init"
-                        "demo.todomvc.init/ring-init"
-                        (bract.core.inducer/run-config-inducers
-                          "dev.inducers")
-                        "bract.core.inducer/invoke-launcher"]
- "dev.inducers"        []  ; no-op for production
- "bract.core.launcher" "demo.todomvc.init/start-server"
+{"parent.config.filenames" ["bract/ring/default.edn"]
+ "bract.core.inducers"     ["bract.core.inducer/export-as-sysprops"
+                            "demo.todomvc.init/log-init"
+                            "demo.todomvc.init/db-conn-init"
+                            "demo.todomvc.init/ring-init"
+                            (bract.ring.inducer/apply-wrappers            ; apply Ring wrappers from bract.ring
+                              $bract.ring.wrappers)
+                            (bract.core.inducer/run-config-inducers
+                              "dev.inducers")
+                            "bract.core.inducer/invoke-launcher"]
+ "dev.inducers"            []  ; no-op for production
+ "bract.core.launcher"     "demo.todomvc.init/start-server"
+ ;; bract.ring config
+ "bract.ring.health.body.encoder" cheshire.core/generate-string
+ "bract.ring.health.content.type" "application/json"
+ "bract.ring.info.body.encoder"   cheshire.core/generate-string
+ "bract.ring.info.content.type"   "application/json"
  ;; logging config
  "bract.core.exports" ["logback.statuslistener.enabled"
                        "logback.level.root"

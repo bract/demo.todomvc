@@ -14,9 +14,9 @@
   - Cambium: API 0.9.1 and Logback-module 0.4.1
   - Ring 1.6.3
   - Cljs-ajax 0.7.3
-- [TODO] Switch to bract.ring wrappers
+- Use bract.ring wrappers
+  - JSON output for /info and /health endpoints
 - [TODO] Display app version in /info result
-- [TODO] JSON output for /info and /health endpoints
 
 
 ## 0.4.1 / 2017-August-08
