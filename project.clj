@@ -6,6 +6,7 @@
   :resource-paths ["resources" "target/generated/resources"]  ; see :project-edn entry
   :source-paths ["src/clj"]
   :test-paths   ["test/clj"]
+  :pedantic?    :warn
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [bract/bract.cli     "0.5.0-SNAPSHOT"]
                  ;; ClojureScript
@@ -13,7 +14,7 @@
                  [cljs-ajax "0.7.3"]         ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]         ; for dynamically generating HTML
                  ;; server-side web
-                 [ring/ring-core                  "1.6.3"]
+                 [ring/ring-core                  "1.6.3" :exclusions [commons-codec]]
                  [bract/bract.ring                "0.5.0-SNAPSHOT"]  ; Ring support for Bract
                  [calfpath                        "0.5.0"]  ; server side web routing
                  [de.ubercode.clostache/clostache "1.4.0" :exclusions [org.clojure/clojure]]  ; Mustache templates
@@ -66,5 +67,6 @@
                                              :compiler {:output-to  "resources/public/js/app.min.js"
                                                         :output-dir "target/js/out"
                                                         :pretty-print  false
-                                                        :optimizations :advanced}}]}}}
+                                                        :optimizations :advanced}}]}
+                       :pedantic? :abort}}
   :aliases {"liquibase"  ["run" "-m" "liquibase"]})
