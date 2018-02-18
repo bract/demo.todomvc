@@ -1,4 +1,4 @@
-{"parent.config.filenames" "baseconfig.edn"
- "dev.inducers"            [;; record the context for dev workflow
-                            bract.core.dev/record-context!]
- "minify.js.file" false}
+{"parent.filenames" ["baseconfig.edn" "bract/ring/devdelta.edn"]
+ "dev.inducers"     [;; record the context for dev workflow
+                     bract.core.dev/record-context!]
+ "minify.js.file"   false}

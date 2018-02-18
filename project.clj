@@ -1,4 +1,4 @@
-(defproject bract/demo.todomvc "0.4.1"
+(defproject bract/demo.todomvc "0.5.0-SNAPSHOT"
   :description "Demo TodoMVC app using Clojure, ClojureScript and the Bract framework"
   :url "https://github.com/bract/demo.todomvc"
   :license {:name "Eclipse Public License"
@@ -6,33 +6,34 @@
   :resource-paths ["resources" "target/generated/resources"]  ; see :project-edn entry
   :source-paths ["src/clj"]
   :test-paths   ["test/clj"]
-  :dependencies [[org.clojure/clojure "1.8.0"]
-                 [bract/bract.cli     "0.4.1"]
+  :pedantic?    :warn
+  :dependencies [[org.clojure/clojure "1.9.0"]
+                 [bract/bract.cli     "0.5.0"]
                  ;; ClojureScript
-                 [org.clojure/clojurescript "1.9.854"]
-                 [cljs-ajax "0.6.0"]         ; for making AJAX calls from within the browser
+                 [org.clojure/clojurescript "1.9.946"]
+                 [cljs-ajax "0.7.3"]         ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]         ; for dynamically generating HTML
                  ;; server-side web
-                 [ring/ring-core                  "1.6.1"]
-                 [bract/bract.ring                "0.4.1"]  ; Ring support for Bract
-                 [calfpath                        "0.4.0"]  ; server side web routing
+                 [ring/ring-core                  "1.6.3" :exclusions [commons-codec]]
+                 [bract/bract.ring                "0.5.0"]  ; Ring support for Bract
+                 [calfpath                        "0.5.0"]  ; server side web routing
                  [de.ubercode.clostache/clostache "1.4.0" :exclusions [org.clojure/clojure]]  ; Mustache templates
                  [http-kit                        "2.2.0"]  ; web server
                  ;; logging
-                 [cambium/cambium.core           "0.9.0"]  ; for logs as data (builds on clojure/tools.logging)
-                 [cambium/cambium.codec-cheshire "0.9.0"]  ; a JSON based codec for logs as data
-                 [logback-bundle/json-bundle     "0.3.0"]  ; a JSON based backing implementation
+                 [cambium/cambium.core           "0.9.1"]  ; for logs as data (builds on clojure/tools.logging)
+                 [cambium/cambium.codec-cheshire "0.9.1"]  ; a JSON based codec for logs as data
+                 [cambium/cambium.logback.json   "0.4.1"]  ; a JSON based backing implementation
                  ;; database
                  [com.h2database/h2 "1.4.196"]  ; the embedded H2 database
                  [cumulus  "0.1.2"]  ; for easily deriving JDBC connection params
                  [clj-dbcp "0.9.0"]  ; for making database connection pool
-                 [asphalt  "0.6.3"]  ; for reading/writing databases using JDBC
+                 [asphalt  "0.6.5"]  ; for reading/writing databases using JDBC
                  ]
   :target-path "target/%s"
-  :plugins [[lein-cljsbuild   "1.1.6" :exclusions [org.clojure/clojure]]
-            [lein-figwheel    "0.5.10"]
+  :plugins [[lein-cljsbuild   "1.1.7" :exclusions [org.clojure/clojure]]
+            [lein-figwheel    "0.5.14"]
             [lein-project-edn "0.2.0"]
-            [lein-ring        "0.12.0"]]
+            [lein-ring        "0.12.3"]]
   :hooks [leiningen.project-edn/activate]
   :clean-targets ^{:protect false} ["resources/public/js/out"
                                     "resources/public/js/app.js"
@@ -44,7 +45,7 @@
          :init    bract.ring.dev/init!
          :port    3000
          :nrepl   {:start? true :port 3001}}
-  :profiles {:dev     {:dependencies [[bract/bract.dev "0.4.1"]
+  :profiles {:dev     {:dependencies [[bract/bract.dev "0.5.0"]
                                       [clj-liquibase   "0.6.0"]]
                        :source-paths ["dev"]
                        :cljsbuild {:builds [{:id "dev"
@@ -66,5 +67,6 @@
                                              :compiler {:output-to  "resources/public/js/app.min.js"
                                                         :output-dir "target/js/out"
                                                         :pretty-print  false
-                                                        :optimizations :advanced}}]}}}
+                                                        :optimizations :advanced}}]}
+                       :pedantic? :abort}}
   :aliases {"liquibase"  ["run" "-m" "liquibase"]})
