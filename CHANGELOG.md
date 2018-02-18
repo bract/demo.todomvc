@@ -4,7 +4,7 @@
 - [Todo] Factor out Liquibase as a module
 
 
-## [WIP] 0.5.0 / 2018-February-??
+## 0.5.0 / 2018-February-18
 
 - Update dependencies
   - Bract 0.5.0

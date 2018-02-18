@@ -1,4 +1,4 @@
-(defproject bract/demo.todomvc "0.5.0-SNAPSHOT"
+(defproject bract/demo.todomvc "0.5.0"
   :description "Demo TodoMVC app using Clojure, ClojureScript and the Bract framework"
   :url "https://github.com/bract/demo.todomvc"
   :license {:name "Eclipse Public License"
