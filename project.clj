@@ -8,14 +8,14 @@
   :test-paths   ["test/clj"]
   :pedantic?    :warn
   :dependencies [[org.clojure/clojure "1.9.0"]
-                 [bract/bract.cli     "0.5.0-SNAPSHOT"]
+                 [bract/bract.cli     "0.5.0"]
                  ;; ClojureScript
                  [org.clojure/clojurescript "1.9.946"]
                  [cljs-ajax "0.7.3"]         ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]         ; for dynamically generating HTML
                  ;; server-side web
                  [ring/ring-core                  "1.6.3" :exclusions [commons-codec]]
-                 [bract/bract.ring                "0.5.0-SNAPSHOT"]  ; Ring support for Bract
+                 [bract/bract.ring                "0.5.0"]  ; Ring support for Bract
                  [calfpath                        "0.5.0"]  ; server side web routing
                  [de.ubercode.clostache/clostache "1.4.0" :exclusions [org.clojure/clojure]]  ; Mustache templates
                  [http-kit                        "2.2.0"]  ; web server
@@ -45,7 +45,7 @@
          :init    bract.ring.dev/init!
          :port    3000
          :nrepl   {:start? true :port 3001}}
-  :profiles {:dev     {:dependencies [[bract/bract.dev "0.5.0-SNAPSHOT"]
+  :profiles {:dev     {:dependencies [[bract/bract.dev "0.5.0"]
                                       [clj-liquibase   "0.6.0"]]
                        :source-paths ["dev"]
                        :cljsbuild {:builds [{:id "dev"
