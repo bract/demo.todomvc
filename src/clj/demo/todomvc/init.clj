@@ -13,14 +13,23 @@
     [clojure.java.io     :as io]
     [bract.core.keydef   :as core-kdef]
     [cambium.codec       :as codec]
-    [clostache.parser    :as clostache]
     [cambium.logback.json.flat-layout :as flat]
+    [clostache.parser    :as clostache]
     [org.httpkit.server  :as server]
-    [demo.todomvc.keydef :as kdef]
-    [demo.todomvc.global :as global]
     [cumulus.core        :as cumulus]
     [clj-dbcp.core       :as dbcp]
+    [demo.todomvc.keydef :as kdef]
+    [demo.todomvc.global :as global]
     [demo.todomvc.web    :as web]))
+
+
+(defn print-version
+  "CLI command - print application version."
+  [context]
+  (let [config (core-kdef/ctx-config context)
+        version (kdef/app-version config)]
+    (println version))
+  (reduced context))
 
 
 (defn log-init

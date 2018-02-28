@@ -21,6 +21,7 @@
 
 
 (keypin/defkey
+  app-version   ["app.version"    string?      "Application version"]
   database-name ["database.name"  string?      "Database name"]
   http-kit-opts ["http-kit.opts"  map?         "Options for HTTP-Kit"]
   render-minjs? ["minify.js.file" kputil/bool? "Whether render minified JavaScript file"])

@@ -1,0 +1,7 @@
+{:bract.cli/pre-inducers [(bract.cli.inducer/merge-commands
+                            {"version" {:doc     "Print application version"
+                                        :handler demo.todomvc.init/print-version}})
+                          (bract.core.inducer/fallback-config-files
+                            ["baseconfig.edn"])]
+ :bract.core/inducers [bract.core.inducer/discover-hostname
+                       bract.core.inducer/discover-project-edn-version]}
