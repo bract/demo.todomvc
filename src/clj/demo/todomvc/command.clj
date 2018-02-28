@@ -33,4 +33,4 @@
 (defn command-purge-deleted
   "CLI command - purge soft-deleted items."
   [context]
-  (core-inducer/update-launcher context #'launcher-purge-deleted))
+  (core-inducer/prepare-launcher context #'launcher-purge-deleted))
