@@ -11,7 +11,8 @@
 - Add fallback config (in `baseconfig.edn`) for application version and hostname
 - Use `bract.cli.main` as CLI entry point
 - Use soft-delete to remove TODO items in database
-- [TODO] Add CLI command to purge soft-deleted TODO items
+- Add CLI command to purge soft-deleted TODO items
+- [TODO] Use `bract.core.dev-init` to initialize test namespaces
 
 
 ## 0.5.0 / 2018-February-18

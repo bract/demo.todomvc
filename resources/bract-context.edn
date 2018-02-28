@@ -1,6 +1,8 @@
 {:bract.cli/pre-inducers [(bract.cli.inducer/merge-commands
                             {"version" {:doc     "Print application version"
-                                        :handler demo.todomvc.init/print-version}})
+                                        :handler demo.todomvc.command/command-print-version}
+                             "purge"   {:doc     "Purge soft-deleted items"
+                                        :handler demo.todomvc.command/command-purge-deleted}})
                           (bract.core.inducer/fallback-config-files
                             ["baseconfig.edn"])]
  :bract.core/inducers [bract.core.inducer/discover-hostname

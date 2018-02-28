@@ -23,15 +23,6 @@
     [demo.todomvc.web    :as web]))
 
 
-(defn print-version
-  "CLI command - print application version."
-  [context]
-  (let [config (core-kdef/ctx-config context)
-        version (kdef/app-version config)]
-    (println version))
-  (reduced context))
-
-
 (defn log-init
   [context]
   (flat/set-decoder! codec/destringify-val)
