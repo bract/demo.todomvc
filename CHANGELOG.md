@@ -6,7 +6,8 @@
 
 ## [WIP] 0.5.1 / 2018-February-??
 
-- [TODO] Use Bract 0.5.1
+- Use Bract 0.5.1
+  - [TODO] Use the GA version
 - [TODO] Introduce fallback config: hostname, version
 - [TODO] Introduce soft-delete in transaction path
 - [TODO] Add CLI command to purge soft-deleted TODO items
