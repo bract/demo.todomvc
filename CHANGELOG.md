@@ -9,7 +9,7 @@
 - Use Bract 0.5.1
   - [TODO] Use the GA version
 - [TODO] Introduce fallback config: hostname, version
-- [TODO] Introduce soft-delete in transaction path
+- Use soft-delete to remove TODO items in database
 - [TODO] Add CLI command to purge soft-deleted TODO items
 
 
