@@ -12,7 +12,7 @@
 - Use `bract.cli.main` as CLI entry point
 - Use soft-delete to remove TODO items in database
 - Add CLI command to purge soft-deleted TODO items
-- [TODO] Use `bract.core.dev-init` to initialize test namespaces
+- Use `bract.core.dev-init` to initialize test namespaces
 
 
 ## 0.5.0 / 2018-February-18

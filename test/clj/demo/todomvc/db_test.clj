@@ -14,7 +14,7 @@
     [demo.todomvc.global :as global]
     [demo.todomvc.db     :as db]
     [demo.todomvc.util   :as util]
-    [demo.todomvc.test-init]))
+    [bract.core.dev-init]))
 
 
 (asphalt/defsql sql-wipe-todos  "DELETE FROM todos")
