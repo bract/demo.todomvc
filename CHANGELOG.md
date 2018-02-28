@@ -8,7 +8,7 @@
 
 - Use Bract 0.5.1
   - [TODO] Use the GA version
-- [TODO] Introduce fallback config: hostname, version
+- Add fallback config (in `baseconfig.edn`) for application version and hostname
 - Use soft-delete to remove TODO items in database
 - [TODO] Add CLI command to purge soft-deleted TODO items
 
