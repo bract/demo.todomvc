@@ -4,6 +4,14 @@
 - [Todo] Factor out Liquibase as a module
 
 
+## [WIP] 0.5.1 / 2018-February-??
+
+- [TODO] Use Bract 0.5.1
+- [TODO] Introduce fallback config: hostname, version
+- [TODO] Introduce soft-delete in transaction path
+- [TODO] Add CLI command to purge soft-deleted TODO items
+
+
 ## 0.5.0 / 2018-February-18
 
 - Update dependencies
