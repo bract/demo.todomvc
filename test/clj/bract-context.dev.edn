@@ -1,2 +1,2 @@
-{:bract.core/inducers [bract.core.inducer/discover-hostname
-                       bract.core.inducer/discover-project-edn-version]}
+{"parent.filenames" ["bract-context.edn"]
+ :bract.cli/pre-inducers []}
