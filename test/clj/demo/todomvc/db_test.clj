@@ -14,16 +14,18 @@
     [demo.todomvc.global :as global]
     [demo.todomvc.db     :as db]
     [demo.todomvc.util   :as util]
-    [demo.todomvc.test-init]))
+    [bract.core.dev-init]))
 
 
-(asphalt/defsql sql-wipe-todos    "DELETE FROM todos")
-(asphalt/defsql sql-count-todos   "SELECT COUNT(*) FROM todos"                     {:result-set-worker
-                                                                                    asphalt/fetch-single-value})
-(asphalt/defsql sql-find-content  "SELECT content FROM todos WHERE todo_id = $id"  {:result-set-worker
-                                                                                    asphalt/fetch-single-value})
-(asphalt/defsql sql-find-complete "SELECT complete FROM todos WHERE todo_id = $id" {:result-set-worker
-                                                                                    asphalt/fetch-single-value})
+(asphalt/defsql sql-wipe-todos  "DELETE FROM todos")
+(asphalt/defsql sql-count-todos "SELECT COUNT(*) FROM todos WHERE NOT deleted"   {:result-set-worker
+                                                                                  asphalt/fetch-single-value})
+(asphalt/defsql sql-find-content
+  "SELECT content FROM todos WHERE todo_id = $id AND NOT deleted"  {:result-set-worker
+                                                                    asphalt/fetch-single-value})
+(asphalt/defsql sql-find-complete
+  "SELECT complete FROM todos WHERE todo_id = $id AND NOT deleted" {:result-set-worker
+                                                                    asphalt/fetch-single-value})
 
 
 (defn db-test-wrap

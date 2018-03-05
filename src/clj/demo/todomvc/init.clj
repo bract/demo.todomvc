@@ -13,13 +13,13 @@
     [clojure.java.io     :as io]
     [bract.core.keydef   :as core-kdef]
     [cambium.codec       :as codec]
-    [clostache.parser    :as clostache]
     [cambium.logback.json.flat-layout :as flat]
+    [clostache.parser    :as clostache]
     [org.httpkit.server  :as server]
-    [demo.todomvc.keydef :as kdef]
-    [demo.todomvc.global :as global]
     [cumulus.core        :as cumulus]
     [clj-dbcp.core       :as dbcp]
+    [demo.todomvc.keydef :as kdef]
+    [demo.todomvc.global :as global]
     [demo.todomvc.web    :as web]))
 
 

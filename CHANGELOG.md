@@ -4,6 +4,16 @@
 - [Todo] Factor out Liquibase as a module
 
 
+## [WIP] 0.5.1 / 2018-March-??
+
+- Use Bract 0.5.1
+- Add fallback config (in `baseconfig.edn`) for application version and hostname
+- Use `bract.cli.main` as CLI entry point
+- Use soft-delete to remove TODO items in database
+- Add CLI command to purge soft-deleted TODO items
+- Use `bract.core.dev-init` to initialize test namespaces
+
+
 ## 0.5.0 / 2018-February-18
 
 - Update dependencies

@@ -1,4 +1,4 @@
-(defproject bract/demo.todomvc "0.5.0"
+(defproject bract/demo.todomvc "0.5.1-SNAPSHOT"
   :description "Demo TodoMVC app using Clojure, ClojureScript and the Bract framework"
   :url "https://github.com/bract/demo.todomvc"
   :license {:name "Eclipse Public License"
@@ -8,21 +8,21 @@
   :test-paths   ["test/clj"]
   :pedantic?    :warn
   :dependencies [[org.clojure/clojure "1.9.0"]
-                 [bract/bract.cli     "0.5.0"]
+                 [bract/bract.cli     "0.5.1"]
                  ;; ClojureScript
                  [org.clojure/clojurescript "1.9.946"]
                  [cljs-ajax "0.7.3"]         ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]         ; for dynamically generating HTML
                  ;; server-side web
                  [ring/ring-core                  "1.6.3" :exclusions [commons-codec]]
-                 [bract/bract.ring                "0.5.0"]  ; Ring support for Bract
+                 [bract/bract.ring                "0.5.1"]  ; Ring support for Bract
                  [calfpath                        "0.5.0"]  ; server side web routing
                  [de.ubercode.clostache/clostache "1.4.0" :exclusions [org.clojure/clojure]]  ; Mustache templates
                  [http-kit                        "2.2.0"]  ; web server
                  ;; logging
-                 [cambium/cambium.core           "0.9.1"]  ; for logs as data (builds on clojure/tools.logging)
-                 [cambium/cambium.codec-cheshire "0.9.1"]  ; a JSON based codec for logs as data
-                 [cambium/cambium.logback.json   "0.4.1"]  ; a JSON based backing implementation
+                 [cambium/cambium.core            "0.9.1"]  ; for logs as data (builds on clojure/tools.logging)
+                 [cambium/cambium.codec-cheshire  "0.9.1"]  ; a JSON based codec for logs as data
+                 [cambium/cambium.logback.json    "0.4.1"]  ; a JSON based backing implementation
                  ;; database
                  [com.h2database/h2 "1.4.196"]  ; the embedded H2 database
                  [cumulus  "0.1.2"]  ; for easily deriving JDBC connection params
@@ -45,7 +45,7 @@
          :init    bract.ring.dev/init!
          :port    3000
          :nrepl   {:start? true :port 3001}}
-  :profiles {:dev     {:dependencies [[bract/bract.dev "0.5.0"]
+  :profiles {:dev     {:dependencies [[bract/bract.dev "0.5.1"]
                                       [clj-liquibase   "0.6.0"]]
                        :source-paths ["dev"]
                        :cljsbuild {:builds [{:id "dev"
@@ -59,8 +59,8 @@
                                                         :optimizations :none
                                                         :source-map    true
                                                         :source-map-timestamp true}}]}}
-             :uberjar {:aot [demo.todomvc.main]
-                       :main ^:skip-aot demo.todomvc.main
+             :uberjar {:aot [bract.cli.main]
+                       :main ^:skip-aot bract.cli.main
                        :hooks [leiningen.cljsbuild]
                        :cljsbuild {:builds [{:id "prod"
                                              :source-paths ["src/cljs"]

@@ -9,13 +9,22 @@
                         (bract.core.inducer/run-config-inducers
                           "dev.inducers")
                         bract.core.inducer/invoke-launcher]
- "dev.inducers"            []  ; no-op for production
+ "dev.inducers"        []  ; no-op for production
  "bract.core.launcher" demo.todomvc.init/start-server
  ;; bract.ring config
  "bract.ring.health.body.encoder" cheshire.core/generate-string
  "bract.ring.health.content.type" "application/json"
  "bract.ring.info.body.encoder"   cheshire.core/generate-string
  "bract.ring.info.content.type"   "application/json"
+ ;; app information
+ ;; Default is discovered.app.version, which is the value of :version key in project.edn file in classpath
+ "default.app.version" "unknown"
+ "app.version"         "${discovered.app.version|default.app.version}"
+ ;; host information
+ ;; hostname - Name of the host the application is running on
+ ;; Env var HOST_NAME, or HOSTNAME (defined on Linux), or HOST (defined on OSX), or COMPUTERNAME (defined on Windows)
+ "default.hostname"    "localhost"
+ "instance.hostname"   "${HOST_NAME|HOSTNAME|HOST|COMPUTERNAME|discovered.hostname|default.hostname}"
  ;; logging config
  "bract.core.exports" ["logback.statuslistener.enabled"
                        "logback.level.root"

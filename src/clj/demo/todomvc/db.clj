@@ -17,24 +17,13 @@
 
 
 (asphalt/defsql sql-insert-item     "INSERT INTO todos (todo_id, content) VALUES ($id, $content)")
-
-
-(asphalt/defsql sql-find-all        "SELECT todo_id, content, complete, created, updated FROM todos")
-
-
-(asphalt/defsql sql-update-content  "UPDATE todos SET content = $content, updated = now() WHERE todo_id = $id")
-
-
-(asphalt/defsql sql-update-complete "UPDATE todos SET complete = $complete, updated = now() WHERE todo_id = $id")
-
-
-(asphalt/defsql sql-toggle-complete "UPDATE todos SET complete = $complete, updated = now()")
-
-
-(asphalt/defsql sql-delete-item     "DELETE FROM todos WHERE todo_id = $id")
-
-
-(asphalt/defsql sql-delete-complete "DELETE FROM todos WHERE complete = true")
+(asphalt/defsql sql-find-all        "SELECT todo_id, content, complete, created, updated FROM todos WHERE NOT deleted")
+(asphalt/defsql sql-update-content  "UPDATE todos SET content = $content, updated = now() WHERE todo_id = $id AND NOT deleted")
+(asphalt/defsql sql-update-complete "UPDATE todos SET complete = $complete, updated = now() WHERE todo_id = $id AND NOT deleted")
+(asphalt/defsql sql-toggle-complete "UPDATE todos SET complete = $complete, updated = now() WHERE NOT deleted")
+(asphalt/defsql sql-delete-item     "UPDATE todos SET deleted = true WHERE todo_id = $id AND NOT deleted")
+(asphalt/defsql sql-delete-complete "UPDATE todos SET deleted = true WHERE complete = true AND NOT deleted")
+(asphalt/defsql sql-purge-deleted   "DELETE FROM todos WHERE deleted")
 
 
 (defn insert-item
@@ -73,11 +62,17 @@
 
 (defn delete-item
   [id]
-  (log/debug (str "Deleting TODO item"))
+  (log/debug (str "Soft-deleting TODO item ID " id))
   (sql-delete-item global/db {:id id}))
 
 
 (defn delete-complete
   []
-  (log/debug (str "Deleting all TODO items"))
+  (log/debug (str "Soft-deleting all completed TODO items"))
   (sql-delete-complete global/db []))
+
+
+(defn purge-deleted
+  []
+  (log/debug (str "Hard-deleting all soft-deleted TODO items"))
+  (sql-purge-deleted global/db []))
