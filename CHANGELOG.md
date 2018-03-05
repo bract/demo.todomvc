@@ -4,10 +4,9 @@
 - [Todo] Factor out Liquibase as a module
 
 
-## [WIP] 0.5.1 / 2018-February-??
+## [WIP] 0.5.1 / 2018-March-??
 
 - Use Bract 0.5.1
-  - [TODO] Use the GA version
 - Add fallback config (in `baseconfig.edn`) for application version and hostname
 - Use `bract.cli.main` as CLI entry point
 - Use soft-delete to remove TODO items in database
