@@ -4,7 +4,7 @@
 - [Todo] Factor out Liquibase as a module
 
 
-## [WIP] 0.5.1 / 2018-March-??
+## 0.5.1 / 2018-March-05
 
 - Use Bract 0.5.1
 - Add fallback config (in `baseconfig.edn`) for application version and hostname

@@ -28,7 +28,7 @@ You can build the app locally and start the server as follows:
 
 ```shell
 $ lein do clean, uberjar         # implicitly calls `lein cljsbuild once`
-$ java -jar target/uberjar/demo.todomvc-0.5.1-SNAPSHOT-standalone.jar -vf config/config.edn
+$ java -jar target/uberjar/demo.todomvc-0.5.1-standalone.jar -vf config/config.edn
 ```
 
 Alternatively, you may want to run it as follows in development (but logging configuration may be out of control):
@@ -45,8 +45,20 @@ $ lein do clean, figwheel        # in a separate terminal, preferably with rlwra
 $ lein ring server-headless      # ensure not to include clean task
 ```
 
+### Triggering batch job
+
+The TODO items are only soft-deleted in the database by the application. The CLI command `purge` hard-deletes such
+deleted entries, which can be triggered as follows:
+
+```shell
+$ java -jar target/uberjar/demo.todomvc-0.5.1-standalone.jar -c purge -vf config/config.edn
+```
+
 
 ### REPL based development
+
+Be sure to start the ClojureScript code compilation using `lein do clean, cljsbuild auto` or `lein do clean, figwheel`
+ahead of starting the REPL with `lein repl`.
 
 The `dev/user.clj` file is loaded when you run `lein repl` where the following may be helpful:
 
