@@ -12,21 +12,12 @@
     [clojure.edn         :as edn]
     [clojure.java.io     :as io]
     [bract.core.keydef   :as core-kdef]
-    [cambium.codec       :as codec]
-    [cambium.logback.json.flat-layout :as flat]
     [clostache.parser    :as clostache]
-    [org.httpkit.server  :as server]
     [cumulus.core        :as cumulus]
     [clj-dbcp.core       :as dbcp]
     [demo.todomvc.keydef :as kdef]
     [demo.todomvc.global :as global]
     [demo.todomvc.web    :as web]))
-
-
-(defn log-init
-  [context]
-  (flat/set-decoder! codec/destringify-val)
-  context)
 
 
 (defn info-init
@@ -57,7 +48,7 @@
     (assoc context (key kdef/data-source) data-source)))
 
 
-(defn ring-init
+(defn routes-init
   [context]
   ;; store JS minification flag and corresponding patched HTML in vars
   ;; ideally handled with dependency injection, but we use var patching here as it is easy to understand for beginners
@@ -65,14 +56,5 @@
                           kdef/render-minjs?)]
     (alter-var-root #'global/minify-js? (constantly true))
     (alter-var-root #'global/index-html (constantly (web/render-homepage-html true))))
-  ;; return ring handler in the context
-  (assoc context (key kdef/ring-handler) web/handler))
-
-
-(defn start-server
-  [context]
-  (let [handler (kdef/ring-handler context)  ; get ring handler from the context
-        stopper (->> (kdef/ctx-config context)
-                  kdef/http-kit-opts
-                  (server/run-server handler))]
-    (assoc context (key kdef/ctx-stopper) stopper)))
+  ;; return Calfpath routes in the context
+  (assoc context :gossamer/calfpath-routes web/routes))

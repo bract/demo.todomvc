@@ -1,6 +1,6 @@
 # demo.todomvc
 
-Demo project to implement [TodoMVC](http://todomvc.com/) using Bract.
+Demo project to implement [TodoMVC](http://todomvc.com/) using Bract/Gossamer.
 
 
 ## Usage

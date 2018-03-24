@@ -1,2 +1,4 @@
 {"parent.filenames" ["bract-context.edn"]
- :bract.cli/pre-inducers []}
+ :app/cli-inducers  $:app/cfg-inducers
+ :app/dev-inducers  [;; record the context for dev workflow
+                     bract.core.dev/record-context!]}

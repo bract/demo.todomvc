@@ -1,21 +1,6 @@
-{"parent.filenames"    ["bract/ring/default.edn"]
- "bract.core.inducers" [bract.core.inducer/export-as-sysprops
-                        demo.todomvc.init/log-init
-                        demo.todomvc.init/info-init
-                        demo.todomvc.init/db-conn-init
-                        demo.todomvc.init/ring-init
-                        (bract.ring.inducer/apply-wrappers            ; apply Ring wrappers from bract.ring
-                          $bract.ring.wrappers)
-                        (bract.core.inducer/run-config-inducers
-                          "dev.inducers")
-                        bract.core.inducer/invoke-launcher]
- "dev.inducers"        []  ; no-op for production
- "bract.core.launcher" demo.todomvc.init/start-server
- ;; bract.ring config
- "bract.ring.health.body.encoder" cheshire.core/generate-string
- "bract.ring.health.content.type" "application/json"
- "bract.ring.info.body.encoder"   cheshire.core/generate-string
- "bract.ring.info.content.type"   "application/json"
+{"parent.filenames"    ["bract/ring/config.edn"
+                        "gossamer/core/config.edn"
+                        "gossamer/core/config.logback.edn"]
  ;; app information
  ;; Default is discovered.app.version, which is the value of :version key in project.edn file in classpath
  "default.app.version" "unknown"
@@ -26,46 +11,11 @@
  "default.hostname"    "localhost"
  "instance.hostname"   "${HOST_NAME|HOSTNAME|HOST|COMPUTERNAME|discovered.hostname|default.hostname}"
  ;; logging config
- "bract.core.exports" ["logback.statuslistener.enabled"
-                       "logback.level.root"
-                       "logback.level.app"
-                       "logback.appender.console.enabled"
-                       "logback.appender.jsonfile.enabled"
-                       "logback.appender.textfile.enabled"
-                       "logfile.app.json.name"
-                       "logfile.app.text.name"
-                       "logfile.metrics.json.name"
-                       "logfile.metrics.text.name"
-                       "logfile.max.filesize"
-                       "logfile.maxhistory.days"
-                       "logfile.archive.totalsize"
-                       "logfile.json.pretty.print"
-                       "logfile.immediate.flush"
-                       "logfile.async.queue.size"
-                       "logfile.async.discard.at"
-                       "net.spy.log.LoggerImpl"]
- "logback.statuslistener.enabled"    "false"  ; false disables the verbose Logback initialization output
- "logback.level.root"                "INFO"
- "logback.level.app"                 "DEBUG"
- "logback.appender.console.enabled"  "true"
- "logback.appender.jsonfile.enabled" "true"
- "logback.appender.textfile.enabled" "true"
- "logfile.app.json.name"             "logs/application_json.log"
- "logfile.app.text.name"             "logs/application_text.log"
- "logfile.metrics.json.name"         "logs/metrics_json.log"
- "logfile.metrics.text.name"         "logs/metrics_text.log"
- "logfile.max.filesize"              "100MB"
- "logfile.maxhistory.days"           "10"
- "logfile.archive.totalsize"         "10GB"
- "logfile.json.pretty.print"         "false"
- "logfile.immediate.flush"           "true"
- "logfile.async.queue.size"          "500"
- "logfile.async.discard.at"          "0"
- ;; direct SpyMemcached logs to SLF4j
- "net.spy.log.LoggerImpl"            "net.spy.memcached.compat.log.SLF4JLogger"
+ "logback.app.base.package" "demo.todomvc"
  ;; Database
  "database.name" "./todos"
  ;; HTTP-Kit config
  "http-kit.opts" {:port 3000}
+ "bract.ring.server.options" $http-kit.opts
  ;; web rendering
  "minify.js.file" true}

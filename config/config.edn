@@ -1,1 +1,3 @@
-{"parent.filenames" "baseconfig.edn"}
+{"parent.filenames" "baseconfig.edn"
+ "logback.level.root"                "INFO"
+ "logback.level.app"                 "DEBUG"}

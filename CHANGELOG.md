@@ -6,7 +6,14 @@
 
 ## [WIP] 0.6.0 / 2018-March-??
 
-- [TODO] Use Gossamer 0.1.0
+- Use Gossamer 0.6.0
+  - [Todo] Use GA version
+  - Use logback-included in logback.xml
+  - Use bract.ring and Gossamer config resources
+  - Move all inducer reference from config files to context files
+  - Use Calfpath routes instead of direct dispatch
+- [TODO] Replace Clostache (unmaintained) with Cljstache
+  - https://github.com/fotoetienne/cljstache
 
 
 ## 0.5.1 / 2018-March-05

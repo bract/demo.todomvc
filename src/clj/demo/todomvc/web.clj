@@ -98,22 +98,26 @@
              (render-homepage-html false))}))
 
 
-(defn handler
-  [request]
-  (->uri request
-    "/todos/"              []   (->method request
-                                  :get  (list-todos)
-                                  :post (add-todo (slurp (:body request))))
-    "/todos/complete/"     []   (->delete request (delete-complete-todos))
-    "/todos/complete/all/" []   (->put    request (toggle-complete (= "true" (string/lower-case
-                                                                               (slurp (:body request))))))
-    "/todos/:id/"          [id] (->delete request (delete-todo id))
-    "/todos/:id/content/"  [id] (->put    request (update-content  id (slurp (:body request))))
-    "/todos/:id/complete/" [id] (->put    request (update-complete id (= "true" (string/lower-case
-                                                                                  (slurp (:body request))))))
-    "/public/*"            []   (->get    request (if-let [response (rur/resource-response (subs (:uri request) 1))]
-                                                    (do (global/metrics "metrics.web.200") response)
-                                                    (do (global/metrics {:uri (:uri request)} "metrics.web.404")
-                                                      {:status 404 :body "Not found"})))
-    "/favicon.ico"         []   (->get    request (rur/redirect "/public/favicon.ico"))
-    "/"                    []   (->get    request (render-home))))
+(def routes
+  [{:uri "/todos/"              :nested [{:method :get  :handler (fn [_] (list-todos))}
+                                         {:method :post :handler (fn [request] (add-todo (slurp (:body request))))}]}
+   {:uri "/todos/complete/"     :method :delete :handler (fn [_] (delete-complete-todos))}
+   {:uri "/todos/complete/all/" :method :put    :handler (fn [request] (toggle-complete
+                                                                         (= "true" (string/lower-case
+                                                                                     (slurp (:body request))))))}
+   {:uri "/todos/:id/"          :method :delete :handler (fn [{id :id}] (delete-todo id))}
+   {:uri "/todos/:id/content/"  :method :put    :handler (fn [{id :id :as request}] (update-content id
+                                                                                      (slurp (:body request))))}
+   {:uri "/todos/:id/complete/" :method :put    :handler (fn [{id :id :as request}] (update-complete id
+                                                                                      (= "true"
+                                                                                        (string/lower-case
+                                                                                          (slurp (:body request))))))}
+   {:uri "/public/*"            :method :get    :handler (fn [request]
+                                                           (if-let [response (rur/resource-response
+                                                                               (subs (:uri request) 1))]
+                                                             (do (global/metrics "metrics.web.200") response)
+                                                             (do (global/metrics {:uri (:uri request)}
+                                                                   "metrics.web.404")
+                                                               {:status 404 :body "Not found"})))}
+   {:uri "/favicon.ico"         :method :get    :handler (fn [_] (rur/redirect "/public/favicon.ico"))}
+   {:uri "/"                    :method :get    :handler (fn [_] (render-home))}])
