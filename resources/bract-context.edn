@@ -1,4 +1,5 @@
-{"parent.filenames"   ["bract/ring/context.edn"]
+{"parent.filenames"   ["bract/ring/context.edn"
+                       "gossamer/core/context.edn"]
  :bract.cli/config-required? true                ; require config for the application
  :bract.core/config-files    ["baseconfig.edn"]  ; fall back to baseconfig.edn (in classpath) for config
  :bract.core/inducers [(bract.core.inducer/run-context-inducers :app/pre-inducers)
