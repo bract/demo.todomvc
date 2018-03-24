@@ -16,10 +16,10 @@
                                                  cheshire]]  ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]  ; for dynamically generating HTML
                  ;; server-side web
-                 [bract/bract.ring                "0.6.0-alpha3"]
-                 [bract/gossamer.core             "0.6.0-alpha3"]
-                 [ring/ring-core                  "1.6.3" :exclusions [commons-codec]]
-                 [de.ubercode.clostache/clostache "1.4.0" :exclusions [org.clojure/clojure]]  ; Mustache templates
+                 [bract/bract.ring    "0.6.0-alpha3"]
+                 [bract/gossamer.core "0.6.0-alpha3"]
+                 [ring/ring-core      "1.6.3" :exclusions [commons-codec]]
+                 [cljstache           "2.0.1"]  ; mustache templates
                  ;; web servers (uncomment any one)
                  ;;[aleph                   "0.4.4" :exclusions [org.clojure/tools.logging]]
                  [http-kit                "2.3.0-beta2"]

@@ -11,10 +11,9 @@
   (:require
     [clojure.java.io :as io]
     [clojure.string  :as string]
-    [calfpath.core   :refer [->uri ->method ->get ->head ->options ->patch ->put ->post ->delete]]
     [cambium.core    :as log]
     [cheshire.core   :as cheshire]
-    [clostache.parser    :as clostache]
+    [cljstache.core  :as clostache]
     [ring.util.response  :as rur]
     [demo.todomvc.global :as global]
     [demo.todomvc.db     :as db]

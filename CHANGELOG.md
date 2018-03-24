@@ -12,7 +12,7 @@
   - Use bract.ring and Gossamer config resources
   - Move all inducer reference from config files to context files
   - Use Calfpath routes instead of direct dispatch
-- [TODO] Replace Clostache (unmaintained) with Cljstache
+- Replace Clostache (unmaintained) with Cljstache
   - https://github.com/fotoetienne/cljstache
 
 

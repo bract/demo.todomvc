@@ -12,7 +12,6 @@
     [clojure.edn         :as edn]
     [clojure.java.io     :as io]
     [bract.core.keydef   :as core-kdef]
-    [clostache.parser    :as clostache]
     [cumulus.core        :as cumulus]
     [clj-dbcp.core       :as dbcp]
     [demo.todomvc.keydef :as kdef]
