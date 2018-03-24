@@ -13,7 +13,7 @@
     [clojure.string  :as string]
     [cambium.core    :as log]
     [cheshire.core   :as cheshire]
-    [cljstache.core  :as clostache]
+    [cljstache.core  :as mustache]
     [ring.util.response  :as rur]
     [demo.todomvc.global :as global]
     [demo.todomvc.db     :as db]
@@ -84,7 +84,7 @@
 
 (defn render-homepage-html
   [minified-js?]
-  (clostache/render-resource "template/index.html" {:minified-js minified-js?}))
+  (mustache/render-resource "template/index.html" {:minified-js minified-js?}))
 
 
 (defn render-home []
