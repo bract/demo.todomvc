@@ -14,6 +14,7 @@
   - Use Calfpath routes instead of direct dispatch
 - Replace Clostache (unmaintained) with Cljstache
   - https://github.com/fotoetienne/cljstache
+- Add shutdown hook and global uncaught exception handler
 
 
 ## 0.5.1 / 2018-March-05
