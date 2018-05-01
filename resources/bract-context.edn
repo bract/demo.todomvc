@@ -14,9 +14,10 @@
                        (bract.core.inducer/run-context-inducers :app/runtime-manage)]
  :app/pre-inducers    [(bract.cli.inducer/merge-commands
                          {"version" {:doc     "Print application version"
-                                     :handler demo.todomvc.command/command-print-version}
-                          "purge"   {:doc     "Purge soft-deleted items"
-                                     :handler demo.todomvc.command/command-purge-deleted}})]
+                                     :handler demo.todomvc.command/command-print-version}})
+                       (bract.cli.inducer/merge-launch-commands
+                         {"purge"   {:doc     "Purge soft-deleted items"
+                                     :launchers [demo.todomvc.command/launcher-purge-deleted]}})]
  :app/cli-inducers    [bract.cli.inducer/parse-args
                        (bract.core.inducer/run-context-inducers
                          :app/cfg-inducers)
@@ -32,11 +33,11 @@
                        demo.todomvc.init/routes-init]
  :app/route-inducers  [gossamer.core.inducer/calfpath-routes->ring-handler]
  :app/dev-inducers    []
- :app/runtime-manage  [bract.core.inducer/add-shutdown-hook
-                       (bract.core.inducer/set-default-exception-handler
+ :app/runtime-manage  [(bract.core.inducer/set-default-exception-handler
                          demo.todomvc.util/handle-uncaught-exception)]
  ;; ----- launch details -----
- :bract.core/launcher       bract.ring.inducer/start-server
+ :bract.core/launchers      [bract.core.inducer/add-shutdown-hook
+                             bract.ring.inducer/start-server]
  ;;:bract.ring/server-starter bract.ring.server/start-aleph-server
  :bract.ring/server-starter bract.ring.server/start-http-kit-server
  ;;:bract.ring/server-starter bract.ring.server/start-immutant-server
