@@ -17,7 +17,7 @@
                  [hiccups   "0.3.0"]  ; for dynamically generating HTML
                  ;; ----- server-side web -----
                  [bract/bract.ring    "0.6.0-beta3"]
-                 [bract/gossamer.core "0.6.0-beta3-SNAPSHOT"]
+                 [bract/gossamer.core "0.6.0-beta3"]
                  [ring/ring-core      "1.6.3" :exclusions [commons-codec]]
                  [cljstache           "2.0.1"]  ; mustache templates
                  ;; ----- web servers (uncomment any one) -----
