@@ -1,9 +1,45 @@
-{:bract.cli/pre-inducers [(bract.cli.inducer/merge-commands
-                            {"version" {:doc     "Print application version"
-                                        :handler demo.todomvc.command/command-print-version}
-                             "purge"   {:doc     "Purge soft-deleted items"
-                                        :handler demo.todomvc.command/command-purge-deleted}})
-                          (bract.core.inducer/fallback-config-files
-                            ["baseconfig.edn"])]
- :bract.core/inducers [bract.core.inducer/discover-hostname
-                       bract.core.inducer/discover-project-edn-version]}
+{"parent.filenames"   ["bract/ring/context.edn"
+                       "gossamer/core/context.edn"]
+ ;; ----- config defaults -----
+ :bract.cli/config-required? true                ; require config for the application
+ :bract.core/config-files    ["baseconfig.edn"]  ; fall back to baseconfig.edn (in classpath) for config
+ ;; ----- inducer details -----
+ :bract.core/inducers [(bract.core.inducer/run-context-inducers :app/pre-inducers)
+                       (bract.core.inducer/run-context-inducers :app/cli-inducers)
+                       (bract.core.inducer/run-context-inducers :app/log-inducers)
+                       (bract.core.inducer/run-context-inducers :app/init-inducers)
+                       (bract.core.inducer/run-context-inducers :app/route-inducers)
+                       (bract.ring.inducer/apply-wrappers       $:bract.ring/wrappers) ; Ring wrappers from bract.ring
+                       (bract.core.inducer/run-context-inducers :app/dev-inducers)
+                       (bract.core.inducer/run-context-inducers :app/runtime-manage)]
+ :app/pre-inducers    [(bract.cli.inducer/merge-commands
+                         {"version" {:doc     "Print application version"
+                                     :handler demo.todomvc.command/command-print-version}})
+                       (bract.cli.inducer/merge-launch-commands
+                         {"purge"   {:doc     "Purge soft-deleted items"
+                                     :launchers [demo.todomvc.command/launcher-purge-deleted]}})]
+ :app/cli-inducers    [bract.cli.inducer/parse-args
+                       (bract.core.inducer/run-context-inducers
+                         :app/cfg-inducers)
+                       bract.core.inducer/set-verbosity
+                       bract.cli.inducer/execute-command]
+ :app/cfg-inducers    [bract.core.inducer/discover-hostname
+                       bract.core.inducer/discover-project-edn-version
+                       bract.core.inducer/read-config]
+ :app/log-inducers    [bract.core.inducer/export-as-sysprops
+                       gossamer.core.inducer/log-mdc-codec-init]
+ :app/init-inducers   [demo.todomvc.init/info-init
+                       demo.todomvc.init/db-conn-init
+                       demo.todomvc.init/routes-init]
+ :app/route-inducers  [gossamer.core.inducer/calfpath-routes->ring-handler]
+ :app/dev-inducers    []
+ :app/runtime-manage  [(bract.core.inducer/set-default-exception-handler
+                         demo.todomvc.util/handle-uncaught-exception)]
+ ;; ----- launch details -----
+ :bract.core/launchers      [bract.core.inducer/add-shutdown-hook
+                             bract.ring.inducer/start-server]
+ ;;:bract.ring/server-starter bract.ring.server/start-aleph-server
+ :bract.ring/server-starter bract.ring.server/start-http-kit-server
+ ;;:bract.ring/server-starter bract.ring.server/start-immutant-server
+ ;;:bract.ring/server-starter bract.ring.server/start-jetty-server
+ }

@@ -10,7 +10,6 @@
 (ns demo.todomvc.command
   (:require
     [bract.core.keydef   :as core-kdef]
-    [bract.core.inducer  :as core-inducer]
     [demo.todomvc.db     :as db]
     [demo.todomvc.keydef :as kdef]))
 
@@ -28,9 +27,3 @@
   [context]
   (db/purge-deleted)
   (reduced context))
-
-
-(defn command-purge-deleted
-  "CLI command - purge soft-deleted items."
-  [context]
-  (core-inducer/prepare-launcher context #'launcher-purge-deleted))

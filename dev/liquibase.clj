@@ -22,7 +22,7 @@
 
 (defn -main
   [& [cmd & args]]
-  (let [data-source (-> core-dev/default-root-context
+  (let [data-source (-> core-dev/root-context
                       (core-inducer/induce [core-inducer/set-verbosity   ; set default verbosity
                                             core-inducer/read-config     ; read config file(s) and populate context
                                             init/db-conn-init            ; populate JDBC data-source

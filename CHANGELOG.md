@@ -4,6 +4,18 @@
 - [Todo] Factor out Liquibase as a module
 
 
+## [WIP] 0.6.0 / 2018-May-??
+
+- Use Gossamer 0.6.0
+  - Use logback-included in logback.xml
+  - Use bract.ring and Gossamer config resources
+  - Move all inducer reference from config files to context files
+  - Use Calfpath routes instead of direct dispatch
+- Replace Clostache (unmaintained) with Cljstache
+  - https://github.com/fotoetienne/cljstache
+- Add shutdown hook and global uncaught exception handler
+
+
 ## 0.5.1 / 2018-March-05
 
 - Use Bract 0.5.1
