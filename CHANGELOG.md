@@ -4,7 +4,7 @@
 - [Todo] Factor out Liquibase as a module
 
 
-## [WIP] 0.6.0 / 2018-May-??
+## 0.6.0 / 2018-May-18
 
 - Use Gossamer 0.6.0
   - Use logback-included in logback.xml
