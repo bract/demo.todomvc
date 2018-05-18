@@ -4,10 +4,9 @@
 - [Todo] Factor out Liquibase as a module
 
 
-## [WIP] 0.6.0 / 2018-March-??
+## [WIP] 0.6.0 / 2018-May-??
 
 - Use Gossamer 0.6.0
-  - [Todo] Use GA version
   - Use logback-included in logback.xml
   - Use bract.ring and Gossamer config resources
   - Move all inducer reference from config files to context files
