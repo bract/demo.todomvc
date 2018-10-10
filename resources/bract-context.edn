@@ -2,7 +2,6 @@
                        "gossamer/core/context.edn"]
  ;; ----- config defaults -----
  :bract.cli/config-required? true                ; require config for the application
- :bract.core/config-files    ["baseconfig.edn"]  ; fall back to baseconfig.edn (in classpath) for config
  ;; ----- inducer details -----
  :bract.core/inducers [(bract.core.inducer/run-context-inducers :app/pre-inducers)
                        (bract.core.inducer/run-context-inducers :app/cli-inducers)

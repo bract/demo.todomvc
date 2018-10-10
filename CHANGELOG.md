@@ -8,7 +8,9 @@
 
 - Use Bract 0.6.1
 - Use Gossamer 0.6.1
-- [Todo] Bump Aleph version to 0.4.6
+- Upgrade CLJS to 1.10.339
+- Bump Aleph version to 0.4.6
+- Fix disabling JS minification in dev
 - [Todo] Use global atom to hold runtime state
 
 
