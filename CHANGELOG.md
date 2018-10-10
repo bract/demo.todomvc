@@ -4,7 +4,7 @@
 - [Todo] Factor out Liquibase as a module
 
 
-## [WIP] 0.6.1 / 2018-October-??
+## 0.6.1 / 2018-October-10
 
 - Use Bract 0.6.1
 - Use Gossamer 0.6.1
