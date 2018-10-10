@@ -17,4 +17,5 @@ pom.xml.asc
 /logs
 /.repl*
 /figwheel_server.log
+/.rebel_readline_history
 
