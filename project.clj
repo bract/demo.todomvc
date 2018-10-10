@@ -10,7 +10,7 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [bract/bract.cli     "0.6.1-0.1.0"]
                  ;; ----- ClojureScript -----
-                 [org.clojure/clojurescript "1.10.238"]
+                 [org.clojure/clojurescript "1.10.339"]
                  [cljs-ajax "0.7.3" :exclusions [com.fasterxml.jackson.dataformat/jackson-dataformat-smile
                                                  com.fasterxml.jackson.core/jackson-core
                                                  cheshire]]  ; for making AJAX calls from within the browser
@@ -21,7 +21,7 @@
                  [ring/ring-core      "1.6.3" :exclusions [commons-codec]]
                  [cljstache           "2.0.1"]  ; mustache templates
                  ;; ----- web servers (uncomment any one) -----
-                 ;;[aleph                   "0.4.4" :exclusions [org.clojure/tools.logging]]
+                 ;;[aleph                   "0.4.6" :exclusions [org.clojure/tools.logging]]
                  [http-kit                "2.3.0"]
                  ;;[org.immutant/immutant   "2.1.10"]
                  ;;[ring/ring-jetty-adapter "1.6.3"]
@@ -33,7 +33,7 @@
                  ]
   :target-path "target/%s"
   :plugins [[lein-cljsbuild   "1.1.7" :exclusions [org.clojure/clojure]]
-            [lein-figwheel    "0.5.14"]
+            [lein-figwheel    "0.5.16"]
             [lein-project-edn "0.2.0"]
             [lein-ring        "0.12.3"]]
   :hooks [leiningen.project-edn/activate]
