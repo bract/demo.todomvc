@@ -11,7 +11,7 @@
 - Upgrade CLJS to 1.10.339
 - Bump Aleph version to 0.4.6
 - Fix disabling JS minification in dev
-- [Todo] Use global atom to hold runtime state
+- Use global atom to hold runtime state
 
 
 ## 0.6.0 / 2018-May-18

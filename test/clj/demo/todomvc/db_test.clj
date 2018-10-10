@@ -31,18 +31,18 @@
 (defn db-test-wrap
   "Wipe tables"
   [f]
-  (sql-wipe-todos global/db [])
+  (sql-wipe-todos @global/dbconnpool [])
   (f)
-  (sql-wipe-todos global/db []))
+  (sql-wipe-todos @global/dbconnpool []))
 
 
 (use-fixtures :each db-test-wrap)
 
 
 (deftest test-insert-item
-  (is (= 0 (sql-count-todos global/db [])))
+  (is (= 0 (sql-count-todos @global/dbconnpool [])))
   (is (= 1 (db/insert-item "foo")))
-  (is (= 1 (sql-count-todos global/db []))))
+  (is (= 1 (sql-count-todos @global/dbconnpool []))))
 
 
 (deftest test-retrieve-all
@@ -63,9 +63,9 @@
   (let [id (util/uuid)]
     (db/insert-item id "foo")
     (db/update-content id "bar")
-    (is (= "bar" (sql-find-content global/db {:id id})))
+    (is (= "bar" (sql-find-content @global/dbconnpool {:id id})))
     (db/update-complete id true)
-    (is (= true (sql-find-complete global/db {:id id})))))
+    (is (= true (sql-find-complete @global/dbconnpool {:id id})))))
 
 
 (deftest test-toggle-items

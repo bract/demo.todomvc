@@ -32,47 +32,47 @@
     (insert-item (util/uuid) content))
   ([id content]
     (log/debug "Adding TODO item")
-    (sql-insert-item global/db {:id id :content content})))
+    (sql-insert-item @global/dbconnpool {:id id :content content})))
 
 
 (defn find-all
   []
   (log/debug "Finding TODO items")
-  (->> (sql-find-all global/db [])
+  (->> (sql-find-all @global/dbconnpool [])
     (mapv #(apply entity/->Todo %))))
 
 
 (defn update-content
   [id content]
   (log/debug "Updating TODO items")
-  (sql-update-content global/db {:id id :content content}))
+  (sql-update-content @global/dbconnpool {:id id :content content}))
 
 
 (defn update-complete
   [id complete?]
   (log/debug (str "Marking TODO item as " (if complete? "complete" "incomplete")))
-  (sql-update-complete global/db {:id id :complete complete?}))
+  (sql-update-complete @global/dbconnpool {:id id :complete complete?}))
 
 
 (defn toggle-complete
   [complete?]
   (log/debug (str "Marking all TODO items as " (if complete? "complete" "incomplete")))
-  (sql-toggle-complete global/db {:complete complete?}))
+  (sql-toggle-complete @global/dbconnpool {:complete complete?}))
 
 
 (defn delete-item
   [id]
   (log/debug (str "Soft-deleting TODO item ID " id))
-  (sql-delete-item global/db {:id id}))
+  (sql-delete-item @global/dbconnpool {:id id}))
 
 
 (defn delete-complete
   []
   (log/debug (str "Soft-deleting all completed TODO items"))
-  (sql-delete-complete global/db []))
+  (sql-delete-complete @global/dbconnpool []))
 
 
 (defn purge-deleted
   []
   (log/debug (str "Hard-deleting all soft-deleted TODO items"))
-  (sql-purge-deleted global/db []))
+  (sql-purge-deleted @global/dbconnpool []))

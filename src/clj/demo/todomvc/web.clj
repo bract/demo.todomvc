@@ -92,8 +92,8 @@
     (global/metrics "metrics.web.200")
     {:status 200
      :headers {"Content-type" "text/html"}
-     :body (if global/minify-js?
-             global/index-html
+     :body (if @global/minify-js?
+             @global/index-html
              (render-homepage-html false))}))
 
 

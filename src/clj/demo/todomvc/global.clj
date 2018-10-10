@@ -9,16 +9,18 @@
 
 (ns demo.todomvc.global
   (:require
-    [cambium.core :as log]))
+    [cambium.core :as log]
+    [keypin.core :as keypin]))
 
 
-(def ^:redef db nil)
+(defonce runtime (atom {}))
 
 
-(def ^:redef minify-js? false)
-
-
-(def ^:redef index-html nil)
+(keypin/defkey
+  {:source runtime}
+  dbconnpool [:dbconnpool some?    "DB connection pool"]
+  minify-js? [:minify-js? boolean? "Whether minify JS?"]
+  index-html [:index-html string?  "HTML for the index page"])
 
 
 (log/deflogger metrics "METRICS")

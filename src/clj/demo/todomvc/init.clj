@@ -20,7 +20,7 @@
 
 
 (defn info-init
-  [context]
+  [context] (println "render-minjs?:" (kdef/render-minjs? (kdef/ctx-config context)))
   (let [version (-> (io/resource "project.edn")
                   slurp
                   edn/read-string
@@ -40,9 +40,7 @@
                       (array-map :target :filesys :database) ; create option map for cumulus
                       (cumulus/jdbc-params :h2)              ; create JDBC params for DBCP
                       dbcp/make-datasource)]
-    (->> data-source
-      constantly                     ; turn it into a function for alter-var-root
-      (alter-var-root #'global/db))
+    (swap! global/runtime assoc (key global/dbconnpool) data-source)
     ;; return JDBC data source in the context; liquibase script needs it
     (assoc context (key kdef/data-source) data-source)))
 
@@ -51,9 +49,8 @@
   [context]
   ;; store JS minification flag and corresponding patched HTML in vars
   ;; ideally handled with dependency injection, but we use var patching here as it is easy to understand for beginners
-  (when-let [minify-js? (->> (kdef/ctx-config context)
-                          kdef/render-minjs?)]
-    (alter-var-root #'global/minify-js? (constantly true))
-    (alter-var-root #'global/index-html (constantly (web/render-homepage-html true))))
+  (swap! global/runtime merge {(key global/minify-js?) (-> (kdef/ctx-config context)
+                                                         kdef/render-minjs?)
+                               (key global/index-html) (web/render-homepage-html true)})
   ;; return Calfpath routes in the context
   (assoc context :gossamer/calfpath-routes web/routes))
