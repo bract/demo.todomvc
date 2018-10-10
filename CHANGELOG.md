@@ -6,8 +6,10 @@
 
 ## [WIP] 0.6.1 / 2018-October-??
 
-- [Todo] Use Bract 0.6.1
-- [Todo] Use Gossamer 0.6.1
+- Use Bract 0.6.1
+- Use Gossamer 0.6.1
+- [Todo] Bump Aleph version to 0.4.6
+- [Todo] Use global atom to hold runtime state
 
 
 ## 0.6.0 / 2018-May-18
