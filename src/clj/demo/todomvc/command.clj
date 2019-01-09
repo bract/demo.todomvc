@@ -9,18 +9,7 @@
 
 (ns demo.todomvc.command
   (:require
-    [bract.core.keydef   :as core-kdef]
-    [demo.todomvc.db     :as db]
-    [demo.todomvc.keydef :as kdef]))
-
-
-(defn command-print-version
-  "CLI command - print application version."
-  [context]
-  (let [config (core-kdef/ctx-config context)
-        version (kdef/app-version config)]
-    (println version))
-  (reduced context))
+    [demo.todomvc.db :as db]))
 
 
 (defn launcher-purge-deleted
