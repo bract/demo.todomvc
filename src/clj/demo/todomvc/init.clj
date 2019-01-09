@@ -20,7 +20,7 @@
 
 
 (defn info-init
-  [context] (println "render-minjs?:" (kdef/render-minjs? (kdef/ctx-config context)))
+  [context]
   (let [version (-> (io/resource "project.edn")
                   slurp
                   edn/read-string
