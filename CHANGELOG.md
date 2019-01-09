@@ -6,7 +6,7 @@
 
 ## 0.6.1-0.2.0 / 2019-January-??
 
-- [Todo] Upgrade Clojure to version 1.10.0
+- Upgrade Clojure to version 1.10.0
 - [Todo] Use Gossamer 0.6.1-0.2.0
   - Trim down bract-context.edn
   - Trim down bract-context.dev.edn

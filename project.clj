@@ -7,7 +7,7 @@
   :source-paths ["src/clj"]
   :test-paths   ["test/clj"]
   :pedantic?    :warn
-  :dependencies [[org.clojure/clojure "1.9.0"]
+  :dependencies [[org.clojure/clojure "1.10.0"]
                  [bract/bract.cli     "0.6.1-0.1.0"]
                  ;; ----- ClojureScript -----
                  [org.clojure/clojurescript "1.10.339"]
