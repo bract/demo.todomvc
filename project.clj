@@ -1,4 +1,4 @@
-(defproject bract/demo.todomvc "0.6.1-0.2.0-SNAPSHOT"
+(defproject bract/demo.todomvc "0.6.1-0.2.0"
   :description "Demo TodoMVC app using Clojure, ClojureScript and the Bract/Gossamer framework"
   :url "https://github.com/bract/demo.todomvc"
   :license {:name "Eclipse Public License"
@@ -15,7 +15,7 @@
                                                  cheshire]]  ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]  ; for dynamically generating HTML
                  ;; ----- server-side web -----
-                 [bract/gossamer.core "0.6.1-0.2.0-SNAPSHOT"]
+                 [bract/gossamer.core "0.6.1-0.2.0"]
                  [ring/ring-core      "1.6.3" :exclusions [commons-codec]]
                  [cljstache           "2.0.1"]  ; mustache templates
                  ;; ----- web servers (uncomment any one) -----

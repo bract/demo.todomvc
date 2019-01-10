@@ -4,7 +4,7 @@
 - [Todo] Factor out Liquibase as a module
 
 
-## 0.6.1-0.2.0 / 2019-January-??
+## 0.6.1-0.2.0 / 2019-January-10
 
 - Upgrade Clojure to version 1.10.0
 - Use Gossamer 0.6.1-0.2.0
