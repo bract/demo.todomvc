@@ -1,5 +1,5 @@
-(defproject bract/demo.todomvc "0.6.1"
-  :description "Demo TodoMVC app using Clojure, ClojureScript and the Bract framework"
+(defproject bract/demo.todomvc "0.6.1-0.2.0"
+  :description "Demo TodoMVC app using Clojure, ClojureScript and the Bract/Gossamer framework"
   :url "https://github.com/bract/demo.todomvc"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
@@ -7,8 +7,7 @@
   :source-paths ["src/clj"]
   :test-paths   ["test/clj"]
   :pedantic?    :warn
-  :dependencies [[org.clojure/clojure "1.9.0"]
-                 [bract/bract.cli     "0.6.1-0.1.0"]
+  :dependencies [[org.clojure/clojure "1.10.0"]
                  ;; ----- ClojureScript -----
                  [org.clojure/clojurescript "1.10.339"]
                  [cljs-ajax "0.7.3" :exclusions [com.fasterxml.jackson.dataformat/jackson-dataformat-smile
@@ -16,8 +15,7 @@
                                                  cheshire]]  ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]  ; for dynamically generating HTML
                  ;; ----- server-side web -----
-                 [bract/bract.ring    "0.6.1-0.1.0"]
-                 [bract/gossamer.core "0.6.1-0.1.0"]
+                 [bract/gossamer.core "0.6.1-0.2.0"]
                  [ring/ring-core      "1.6.3" :exclusions [commons-codec]]
                  [cljstache           "2.0.1"]  ; mustache templates
                  ;; ----- web servers (uncomment any one) -----

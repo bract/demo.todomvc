@@ -4,6 +4,17 @@
 - [Todo] Factor out Liquibase as a module
 
 
+## 0.6.1-0.2.0 / 2019-January-10
+
+- Upgrade Clojure to version 1.10.0
+- Use Gossamer 0.6.1-0.2.0
+  - Trim down bract-context.edn
+  - Trim down bract-context.dev.edn
+  - Remove `bract.cli`, `bract.ring` modules
+  - Remove redundant `app.version` key definition
+  - Remove redundant print-version command
+
+
 ## 0.6.1 / 2018-October-10
 
 - Use Bract 0.6.1

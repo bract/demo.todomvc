@@ -1,8 +1,3 @@
-{"parent.filenames" ["bract-context.edn"]
- :app/cli-inducers  $:app/cfg-inducers
- :app/dev-inducers  [;; record the context for dev workflow
-                     bract.core.dev/record-context!]
- :app/runtime-manage [bract.core.inducer/set-default-exception-handler
-                      (bract.core.inducer/set-default-exception-handler
-                        demo.todomvc.util/handle-uncaught-exception)]
- :bract.core/launchers [bract.ring.inducer/start-server]}
+{"parent.filenames" ["bract-context.edn"
+                     "gossamer/core/webapp-context.dev.edn"]
+}
