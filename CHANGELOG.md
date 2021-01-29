@@ -13,6 +13,7 @@
   - Replace discontinued `goog.dom.query` with `js/document.querySelectorAll`
 - Version upgrades
   - Clojure 1.10.2
+  - ClojureScript 1.10.758
   - ring-core 1.8.2
   - ring-jetty-adapter (commented) 1.8.2
   - http-kit 2.5.1
