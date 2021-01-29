@@ -23,6 +23,10 @@
   - ring-core 1.8.2
   - ring-jetty-adapter (commented) 1.8.2
   - http-kit 2.5.1
+  - cljs-ajax 0.8.1
+  - cljstache 2.0.6
+  - H2 database 1.4.200
+  - asphalt 0.6.7
 
 
 ## 0.6.1-0.2.0 / 2019-January-10

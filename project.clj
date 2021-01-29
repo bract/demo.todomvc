@@ -10,24 +10,24 @@
   :dependencies [[org.clojure/clojure "1.10.2"]
                  ;; ----- ClojureScript -----
                  [org.clojure/clojurescript "1.10.758" :exclusions [com.google.code.findbugs/jsr305]]
-                 [cljs-ajax "0.7.3" :exclusions [com.fasterxml.jackson.dataformat/jackson-dataformat-smile
+                 [cljs-ajax "0.8.0" :exclusions [com.fasterxml.jackson.dataformat/jackson-dataformat-smile
                                                  com.fasterxml.jackson.core/jackson-core
                                                  cheshire]]  ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]  ; for dynamically generating HTML
                  ;; ----- server-side web -----
                  [bract/gossamer.core "0.6.1-0.2.0"]
                  [ring/ring-core      "1.8.2" :exclusions [commons-codec]]
-                 [cljstache           "2.0.1"]  ; mustache templates
+                 [cljstache           "2.0.6"]  ; mustache templates
                  ;; ----- web servers (uncomment any one) -----
                  ;;[aleph                   "0.4.6" :exclusions [org.clojure/tools.logging]]
                  [http-kit                "2.5.1"]
                  ;;[org.immutant/immutant   "2.1.10"]
                  ;;[ring/ring-jetty-adapter "1.8.2"]
                  ;; ------ database -----
-                 [com.h2database/h2 "1.4.196"]  ; the embedded H2 database
+                 [com.h2database/h2 "1.4.200"]  ; the embedded H2 database
                  [cumulus  "0.1.2"]  ; for easily deriving JDBC connection params
                  [clj-dbcp "0.9.0"]  ; for making database connection pool
-                 [asphalt  "0.6.5"]  ; for reading/writing databases using JDBC
+                 [asphalt  "0.6.7"]  ; for reading/writing databases using JDBC
                  ]
   :target-path "target/%s"
   :plugins [[lein-cljsbuild   "1.1.8" :exclusions [org.clojure/clojure]]
