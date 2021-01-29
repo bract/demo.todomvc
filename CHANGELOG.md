@@ -1,5 +1,11 @@
 # demo.todomvc Change Log
 
+## Todo & Ideas
+
+- [Todo] Drop Liquibase
+- [Idea] Use PostgreSQL
+- [Idea] Use Reagent
+
 
 ## [WIP] 0.6.2 / 2021-January-??
 
