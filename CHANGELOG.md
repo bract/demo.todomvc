@@ -9,6 +9,8 @@
     - Use port 3001 for nREPL
     - Drop `dev` files
   - Use `bract.core.dev` as main entrypoint in DEV
+- Application
+  - Replace discontinued `goog.dom.query` with `js/document.querySelectorAll`
 - Version upgrades
   - Clojure 1.10.2
   - ring-core 1.8.2
