@@ -17,6 +17,7 @@
   - Use `bract.core.dev` as main entrypoint in DEV
 - Application
   - Replace discontinued `goog.dom.query` with `js/document.querySelectorAll`
+  - Move `dev/liquibase.clj` to `test/clj/liquibase.clj` (prepare to uptake Bract 0.6.2)
 - Version upgrades
   - Clojure 1.10.2
   - ClojureScript 1.10.758
