@@ -1,7 +1,19 @@
 # demo.todomvc Change Log
 
-## Todo
-- [Todo] Factor out Liquibase as a module
+
+## [WIP] 0.6.2 / 2021-January-??
+
+- Bract
+  - Use Bract 0.6.2
+  - Use `bract.dev.repl` for REPL support
+    - Use port 3001 for nREPL
+    - Drop `dev` files
+  - Use `bract.core.dev` as main entrypoint in DEV
+- Version upgrades
+  - Clojure 1.10.2
+  - ring-core 1.8.2
+  - ring-jetty-adapter (commented) 1.8.2
+  - http-kit 2.5.1
 
 
 ## 0.6.1-0.2.0 / 2019-January-10
