@@ -135,7 +135,7 @@
       (let [parent-li (.-parentNode node)]
         (when (gclasses/has parent-li "editing") ; still editing?
           (gclasses/remove parent-li "editing")
-          (let [uri (urif "/todos/%s/content/" node)]
+          (let [uri (urif "/todo/%s/content/" node)]
             (logf "-> [PUT %s]: '%s'" uri (.-value node))
             (PUT uri
               {:body (.-value node)
@@ -145,7 +145,7 @@
 
 (defn toggle-complete-todo [node]
   (fn [event]
-    (let [uri  (urif "/todos/%s/complete/" node)
+    (let [uri  (urif "/todo/%s/complete/" node)
           body (str (.-checked node))]
       (logf "-> [PUT %s]: '%s'" uri body)
       (PUT uri
@@ -156,7 +156,7 @@
 
 (defn delete-todo [node]
   (fn [event]
-    (let [uri (urif "/todos/%s/" node)]
+    (let [uri (urif "/todo/%s/" node)]
       (logf "-> [DELETE %s]" uri)
       (DELETE uri
         {:handler (fn [response] (list-todos))
