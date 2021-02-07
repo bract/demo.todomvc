@@ -18,6 +18,8 @@
 - Application
   - Replace discontinued `goog.dom.query` with `js/document.querySelectorAll`
   - Move `dev/liquibase.clj` to `test/clj/liquibase.clj` (prepare to uptake Bract 0.6.2)
+  - Use separate URIs for `/todos/*` and `/todo/:id/*` (conflict resolution for Calfpath 0.8.0)
+  - [Todo] Use bi-directional routes
 - Version upgrades
   - Clojure 1.10.2
   - ClojureScript 1.10.758
