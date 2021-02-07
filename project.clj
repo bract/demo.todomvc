@@ -15,7 +15,7 @@
                                                  cheshire]]  ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]  ; for dynamically generating HTML
                  ;; ----- server-side web -----
-                 [bract/gossamer.core "0.6.2-0.3.0-beta2"]
+                 [bract/gossamer.core "0.6.2-0.3.0-beta3"]
                  [ring/ring-core      "1.8.2" :exclusions [commons-codec]]
                  [cljstache           "2.0.6"]  ; mustache templates
                  ;; ----- web servers (uncomment any one) -----
@@ -45,7 +45,7 @@
          :init    bract.ring.dev/init!
          :port    3000
          :nrepl   {:start? true :port 3001}}
-  :profiles {:dev     {:dependencies [[bract/bract.dev "0.6.2-0.2.0-beta2" :exclusions [bract/bract.core]]
+  :profiles {:dev     {:dependencies [[bract/bract.dev "0.6.2-0.2.0-beta3"]
                                       [clj-liquibase   "0.6.0"]]
                        :main ^:skip-aot bract.core.dev
                        :repl-options {:init-ns bract.dev.repl
