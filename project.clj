@@ -9,13 +9,13 @@
   :pedantic?    :warn
   :dependencies [[org.clojure/clojure "1.10.2"]
                  ;; ----- ClojureScript -----
-                 [org.clojure/clojurescript "1.10.758" :exclusions [com.google.code.findbugs/jsr305]]
+                 [org.clojure/clojurescript "1.10.773" :exclusions [com.google.code.findbugs/jsr305]]
                  [cljs-ajax "0.8.0" :exclusions [com.fasterxml.jackson.dataformat/jackson-dataformat-smile
                                                  com.fasterxml.jackson.core/jackson-core
                                                  cheshire]]  ; for making AJAX calls from within the browser
                  [hiccups   "0.3.0"]  ; for dynamically generating HTML
                  ;; ----- server-side web -----
-                 [bract/gossamer.core "0.6.2-0.3.0-beta3"]
+                 [bract/gossamer.core "0.6.2-0.3.0-alpha4"]
                  [ring/ring-core      "1.8.2" :exclusions [commons-codec]]
                  [cljstache           "2.0.6"]  ; mustache templates
                  ;; ----- web servers (uncomment any one) -----
@@ -45,7 +45,7 @@
          :init    bract.ring.dev/init!
          :port    3000
          :nrepl   {:start? true :port 3001}}
-  :profiles {:dev     {:dependencies [[bract/bract.dev "0.6.2-0.2.0-beta3"]
+  :profiles {:dev     {:dependencies [[bract/bract.dev "0.6.2-0.2.0-alpha4" :exclusions [org.clojure/tools.reader]]
                                       [clj-liquibase   "0.6.0"]]
                        :main ^:skip-aot bract.core.dev
                        :repl-options {:init-ns bract.dev.repl
