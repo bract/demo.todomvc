@@ -11,6 +11,7 @@
 
 - Bract
   - Use Bract 0.6.2
+  - Process CLI args in DEV mode just as main mode
   - Use `bract.dev.repl` for REPL support
     - Use port 3001 for nREPL
     - Drop `dev` files
