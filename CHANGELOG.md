@@ -8,7 +8,7 @@
 - [Todo] Use bi-directional routes
 
 
-## [WIP] 0.6.2 / 2021-January-??
+## [WIP] 0.6.2-0.3.0 / 2021-February-??
 
 - Bract
   - Use Bract 0.6.2
