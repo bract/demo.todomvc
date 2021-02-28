@@ -16,10 +16,7 @@
   * Google Closure cheatsheet:    http://anton.shevchuk.name/wp-demo/closure-tutorials/cheatsheet.html
   * Google Closure docs below:    https://google.github.io/closure-library/
     * https://google.github.io/closure-library/api/goog.dom.html
-    * https://google.github.io/closure-library/api/goog.events.EventType.html
-    * https://google.github.io/closure-library/api/goog.dom.query.html"
-  (:import
-    [goog.dom query])
+    * https://google.github.io/closure-library/api/goog.events.EventType.html"
   (:require-macros
     [hiccups.core :as hiccups :refer [html]])
   (:require
@@ -79,7 +76,7 @@
 
 
 (def dom-toggle-all-input (gdom/getElementByClass "toggle-all"))
-(def dom-toggle-all-label (aget (query ".main label") 0))
+(def dom-toggle-all-label (aget (js/document.querySelectorAll ".main label") 0))
 (def dom-new-todo   (gdom/getElementByClass "new-todo"))
 (def dom-todo-list  (gdom/getElementByClass "todo-list"))
 (def dom-footer     (gdom/getElementByClass "footer"))
@@ -138,7 +135,7 @@
       (let [parent-li (.-parentNode node)]
         (when (gclasses/has parent-li "editing") ; still editing?
           (gclasses/remove parent-li "editing")
-          (let [uri (urif "/todos/%s/content/" node)]
+          (let [uri (urif "/todo/%s/content/" node)]
             (logf "-> [PUT %s]: '%s'" uri (.-value node))
             (PUT uri
               {:body (.-value node)
@@ -148,7 +145,7 @@
 
 (defn toggle-complete-todo [node]
   (fn [event]
-    (let [uri  (urif "/todos/%s/complete/" node)
+    (let [uri  (urif "/todo/%s/complete/" node)
           body (str (.-checked node))]
       (logf "-> [PUT %s]: '%s'" uri body)
       (PUT uri
@@ -159,7 +156,7 @@
 
 (defn delete-todo [node]
   (fn [event]
-    (let [uri (urif "/todos/%s/" node)]
+    (let [uri (urif "/todo/%s/" node)]
       (logf "-> [DELETE %s]" uri)
       (DELETE uri
         {:handler (fn [response] (list-todos))
@@ -204,14 +201,14 @@
                                    {:incomplete-count 0
                                     :complete-count   0}
                                    todos)]
-    (set! (.-textContent (aget (query ".todo-count strong") 0)) incomplete-count)
+    (set! (.-textContent (aget (js/document.querySelectorAll ".todo-count strong") 0)) incomplete-count)
     ;; show element only when complete-count > 0
     (gstyle/setElementShown dom-clear-btn (pos? complete-count)))
-  (bind-event-handler (query "li label") goog.events.EventType.DBLCLICK edit-todo-text)
-  (bind-event-handler (query "li .edit") goog.events.EventType.FOCUSOUT save-edited-todo)
-  (bind-event-handler (query "li .edit") goog.events.EventType.KEYPRESS save-edited-todo)
-  (bind-event-handler (query ".toggle")  goog.events.EventType.CLICK    toggle-complete-todo)
-  (bind-event-handler (query ".destroy") goog.events.EventType.CLICK    delete-todo))
+  (bind-event-handler (js/document.querySelectorAll "li label") goog.events.EventType.DBLCLICK edit-todo-text)
+  (bind-event-handler (js/document.querySelectorAll "li .edit") goog.events.EventType.FOCUSOUT save-edited-todo)
+  (bind-event-handler (js/document.querySelectorAll "li .edit") goog.events.EventType.KEYPRESS save-edited-todo)
+  (bind-event-handler (js/document.querySelectorAll ".toggle")  goog.events.EventType.CLICK    toggle-complete-todo)
+  (bind-event-handler (js/document.querySelectorAll ".destroy") goog.events.EventType.CLICK    delete-todo))
 
 
 (defn list-todos []
@@ -236,7 +233,7 @@
 
 
 (defn setup-filters []
-  (let [nodes (query "li a")
+  (let [nodes (js/document.querySelectorAll "li a")
         radio (fn [selected-node]
                 (dotimes [idx (alength nodes)]
                   (let [each (aget nodes idx)]

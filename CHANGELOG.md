@@ -1,7 +1,36 @@
 # demo.todomvc Change Log
 
-## Todo
-- [Todo] Factor out Liquibase as a module
+## Todo & Ideas
+
+- [Todo] Drop Liquibase
+- [Idea] Use PostgreSQL
+- [Idea] Use Reagent
+- [Todo] Use bi-directional routes
+
+
+## [WIP] 0.6.2-0.3.0 / 2021-February-??
+
+- Bract
+  - Use Bract 0.6.2
+  - Process CLI args in DEV mode just as main mode
+  - Use `bract.dev.repl` for REPL support
+    - Use port 3001 for nREPL
+    - Drop `dev` files
+  - Use `bract.core.dev` as main entrypoint in DEV
+- Application
+  - Replace discontinued `goog.dom.query` with `js/document.querySelectorAll`
+  - Move `dev/liquibase.clj` to `test/clj/liquibase.clj` (uptake Bract 0.6.2)
+  - Use separate URIs for `/todos/*` and `/todo/:id/*` (conflict resolution for Calfpath 0.8.0)
+- Version upgrades
+  - Clojure 1.10.2
+  - ClojureScript 1.10.758
+  - ring-core 1.8.2
+  - ring-jetty-adapter (commented) 1.8.2
+  - http-kit 2.5.1
+  - cljs-ajax 0.8.1
+  - cljstache 2.0.6
+  - H2 database 1.4.200
+  - asphalt 0.6.7
 
 
 ## 0.6.1-0.2.0 / 2019-January-10

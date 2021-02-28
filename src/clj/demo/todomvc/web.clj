@@ -104,13 +104,15 @@
    {:uri "/todos/complete/all/" :method :put    :handler (fn [request] (toggle-complete
                                                                          (= "true" (string/lower-case
                                                                                      (slurp (:body request))))))}
-   {:uri "/todos/:id/"          :method :delete :handler (fn [{id :id}] (delete-todo id))}
-   {:uri "/todos/:id/content/"  :method :put    :handler (fn [{id :id :as request}] (update-content id
-                                                                                      (slurp (:body request))))}
-   {:uri "/todos/:id/complete/" :method :put    :handler (fn [{id :id :as request}] (update-complete id
-                                                                                      (= "true"
-                                                                                        (string/lower-case
-                                                                                          (slurp (:body request))))))}
+   {:uri "/todo/:id/"           :method :delete :handler (fn [{{id :id} :path-params}] (delete-todo id))}
+   {:uri "/todo/:id/content/"   :method :put    :handler (fn [{{id :id} :path-params
+                                                               :as request}] (update-content id
+                                                                               (slurp (:body request))))}
+   {:uri "/todo/:id/complete/"  :method :put    :handler (fn [{{id :id} :path-params
+                                                               :as request}] (update-complete id
+                                                                               (= "true"
+                                                                                 (string/lower-case
+                                                                                   (slurp (:body request))))))}
    {:uri "/public/*"            :method :get    :handler (fn [request]
                                                            (if-let [response (rur/resource-response
                                                                                (subs (:uri request) 1))]
