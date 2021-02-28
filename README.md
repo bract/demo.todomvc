@@ -28,7 +28,7 @@ You can build the app locally and start the server as follows:
 
 ```shell
 $ lein do clean, uberjar         # implicitly calls `lein cljsbuild once`
-$ java -jar target/uberjar/demo.todomvc-0.6.2-0.3.0-SNAPSHOT-standalone.jar -vf config/config.edn
+$ java -jar target/uberjar/demo.todomvc-0.6.2-0.3.0-standalone.jar -vf config/config.edn
 ```
 
 Alternatively, you may want to run it as follows in development (but logging configuration may be out of control):
@@ -51,7 +51,7 @@ The TODO items are only soft-deleted in the database by the application. The CLI
 deleted entries, which can be triggered as follows:
 
 ```shell
-$ java -jar target/uberjar/demo.todomvc-0.6.2-0.3.0-SNAPSHOT-standalone.jar -c purge -vf config/config.edn
+$ java -jar target/uberjar/demo.todomvc-0.6.2-0.3.0-standalone.jar -c purge -vf config/config.edn
 ```
 
 
